@@ -15,6 +15,7 @@ export function setLogger(newLogger: Console): void {
   logger = newLogger;
 }
 
+// TODO: printErros is not used anywhere?
 export let printErrors = false;
 
 export function printErrorMessages(): void {

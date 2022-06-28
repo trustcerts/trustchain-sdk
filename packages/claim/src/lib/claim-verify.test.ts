@@ -6,7 +6,11 @@ import {
 } from '@trustcerts/claim';
 import { ConfigService } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
-import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
+import {
+  CryptoService,
+  defaultCryptoKeyService,
+  getHash,
+} from '@trustcerts/crypto';
 import {
   DidNetworks,
   Identifier,
@@ -105,12 +109,12 @@ describe('claim', () => {
   }
 
   it('read a claim', async () => {
-    const val = {
+    const claimValues: ClaimValues = {
       random: randomBytes(16).toString('hex'),
       name: 'Max Mustermann',
     };
-    const claim = await createClaim(val);
-    expect(claim.values).toEqual(val);
+    const claim = await createClaim(claimValues);
+    expect(claim.values).toEqual(claimValues);
     await promisify(setTimeout)(2000);
     const service = new ClaimVerifierService('localhost');
     const claimLoaded = await service.get(
@@ -122,5 +126,18 @@ describe('claim', () => {
     expect(claim.getUrl()).toEqual(claimLoaded.getUrl());
     expect(await claim.getHtml()).toEqual(await claimLoaded.getHtml());
     expect(claim.values).toEqual(claimLoaded.values);
+  }, 15000);
+
+  it('get hash', async () => {
+    const claimValues: ClaimValues = {
+      random: 'f43747fbc64627d6e86025d026abc878',
+      name: 'Max Mustermann',
+      yearOfBirth: 1980,
+    };
+    const templateDid = 'templateDid';
+    const expectedHash = '7wdvE7i9YKyWw7cDK1jU89fDPgZPwrtLsW2XnochxwjR';
+
+    const hash = await ClaimVerifierService.getHash(claimValues, templateDid);
+    expect(hash).toEqual(expectedHash);
   }, 15000);
 });

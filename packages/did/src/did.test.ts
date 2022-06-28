@@ -1,5 +1,5 @@
 describe('test did', () => {
   it('foo', () => {
-    // TODO needs implementation
+    // DID tests are in packages/tests/src/did/did.test.ts
   });
 });

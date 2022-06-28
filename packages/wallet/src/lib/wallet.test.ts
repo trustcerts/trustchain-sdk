@@ -31,7 +31,7 @@ describe('wallet', () => {
     await config.init(testValues.configValues);
   });
 
-  it('add key', async () => {
+  it('add and remove key', async () => {
     const cryptoKeyServices = [
       new RSACryptoKeyService(),
       new ECCryptoKeyService(),
