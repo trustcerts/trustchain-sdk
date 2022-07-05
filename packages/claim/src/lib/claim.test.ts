@@ -7,12 +7,9 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/did';
 import { WalletService } from '@trustcerts/wallet';
-import { randomBytes } from 'crypto';
-import { readFileSync, writeFileSync } from 'fs';
-import { PDFDocument } from 'pdf-lib';
+import { readFileSync } from 'fs';
 import { Claim } from './claim';
 import { createClaim } from './claim-test-helpers';
-import globalAxios from 'axios';
 
 describe('test claim.ts', () => {
   let config: ConfigService;
