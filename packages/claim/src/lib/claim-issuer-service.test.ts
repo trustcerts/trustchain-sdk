@@ -1,9 +1,4 @@
-import {
-  Claim,
-  ClaimIssuerService,
-  ClaimValues,
-  ClaimVerifierService,
-} from '@trustcerts/claim';
+import { ClaimIssuerService, ClaimVerifierService } from '@trustcerts/claim';
 import { ConfigService } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
 import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
@@ -13,12 +8,7 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/did';
 import { SignatureIssuerService } from '@trustcerts/did-hash';
-import { DidSchemaRegister, SchemaIssuerService } from '@trustcerts/did-schema';
-import {
-  DidTemplateRegister,
-  TemplateIssuerService,
-} from '@trustcerts/did-template';
-import { CompressionType } from '@trustcerts/gateway';
+import { createClaim } from './claim-test-helpers';
 import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
 import { readFileSync } from 'fs';
@@ -31,16 +21,6 @@ describe('claim', () => {
   let config: ConfigService;
 
   let cryptoService: CryptoService;
-
-  const schema = {
-    type: 'object',
-    properties: {
-      name: { type: 'string' },
-      random: { type: 'string' },
-    },
-    required: ['name', 'random'],
-    additionalProperties: false,
-  };
 
   const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
 
@@ -66,50 +46,12 @@ describe('claim', () => {
     await cryptoService.init(key);
   }, 10000);
 
-  async function createClaim(val: ClaimValues): Promise<Claim> {
-    if (!config.config.invite) throw new Error();
-    const template = '<h1>hello</h1>';
-    const host = 'localhost';
-
-    const clientSchema = new SchemaIssuerService(
-      testValues.network.gateways,
-      cryptoService
-    );
-    const schemaDid = DidSchemaRegister.create({
-      controllers: [config.config.invite.id],
-    });
-    schemaDid.setSchema(schema);
-    await DidSchemaRegister.save(schemaDid, clientSchema);
-    const client = new TemplateIssuerService(
-      testValues.network.gateways,
-      cryptoService
-    );
-    const templateDid = DidTemplateRegister.create({
-      controllers: [config.config.invite.id],
-    });
-    templateDid.schemaId = schemaDid.id;
-    templateDid.template = template;
-    templateDid.compression = {
-      type: CompressionType.JSON,
-    };
-    await DidTemplateRegister.save(templateDid, client);
-    await promisify(setTimeout)(1000);
-    const claimIssuer = new ClaimIssuerService();
-    const signatureIssuer = new SignatureIssuerService(
-      testValues.network.gateways,
-      cryptoService
-    );
-    return claimIssuer.create(templateDid, val, host, signatureIssuer, [
-      config.config.invite.id,
-    ]);
-  }
-
   it('create claim', async () => {
     const val = {
       random: randomBytes(16).toString('hex'),
       name: 'Max Mustermann',
     };
-    const claim = await createClaim(val);
+    const claim = await createClaim(val, cryptoService, config);
     expect(claim.values).toEqual(val);
     await promisify(setTimeout)(2000);
     const service = new ClaimVerifierService('localhost');
@@ -126,7 +68,7 @@ describe('claim', () => {
       random: randomBytes(16).toString('hex'),
       name: 'Max Mustermann',
     };
-    const claim = await createClaim(value);
+    const claim = await createClaim(value, cryptoService, config);
     await promisify(setTimeout)(2000);
     const claimIssuer = new ClaimIssuerService();
     const signatureIssuer = new SignatureIssuerService(
