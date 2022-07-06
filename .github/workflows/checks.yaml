@@ -38,19 +38,18 @@ jobs:
           client_secret: client
           network_size: small
 
-      - uses: mansagroup/nrwl-nx-action@v2
+      - uses: trustcerts/nrwl-nx-action@v2.1.2
         with:
           targets: install,build,lint
           nxCloud: true
       - name: Run tests
-        run: npx nx affected --base=last-release --target=test --parallel=false
+        # run: npx nx affected --base=last-release --target=test --parallel=false
         # run: npx nx run-many --target=test --parallel=false --skip-nx-cache=true
-      # - uses: mansagroup/nrwl-nx-action@v2
-      #   with:
-      #     targets: test
-      #     all: 'true'
-      #     parallel: 'false'
-      #     maxParallel: 1
+      - uses: trustcerts/nrwl-nx-action@v2.1.2
+        with:
+          targets: test
+          all: 'true'
+          parallel: 1
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v2
         with:
