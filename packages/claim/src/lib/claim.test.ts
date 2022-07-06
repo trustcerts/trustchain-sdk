@@ -53,7 +53,6 @@ describe('test claim.ts', () => {
   }, 15000);
   it('getUrl', async () => {
     const url = claim.getUrl();
-    console.log(url);
     expect(url).toBeDefined();
   }, 15000);
   it('getHtml', async () => {

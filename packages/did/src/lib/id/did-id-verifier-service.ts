@@ -55,7 +55,6 @@ export class DidIdVerifierService extends VerifierService {
               ? logger.warn(`${id}: ${JSON.stringify(err.response.data)}`)
               : logger.warn(err)
         );
-      console.log(res);
       if (res) return Promise.resolve(res);
     }
     console.log(id, 'not found');
