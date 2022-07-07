@@ -6,7 +6,7 @@ export interface IVerifiableCredentialArguments {
   credentialSubject: ICredentialSubject;
   id: string;
   issuer: IIssuer | string;
-  expirationDate?: string;
+  expirationDate?: number | string;
   nonce?: string; // Hatten wir zuvor bei JWT nicht optional definiert. Muss eine nonce definitiv gesetzt werden bei einem JWT VC?
 }
 export interface ICredentialSubject {

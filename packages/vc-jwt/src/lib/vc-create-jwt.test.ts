@@ -7,7 +7,7 @@ import {
   VerificationRelationshipType,
 } from '@trustcerts/did';
 import { logger } from '@trustcerts/logger';
-import { VerifiableCredentialIssuerService } from '@trustcerts/vc-jwt';
+import { JWT, VerifiableCredentialIssuerService } from '@trustcerts/vc-jwt';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
 
@@ -20,6 +20,8 @@ describe('vc', () => {
   let cryptoServiceRSA: CryptoService;
 
   let walletService: WalletService;
+
+  const vcIssuerService = new VerifiableCredentialIssuerService();
 
   beforeAll(async () => {
     const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
@@ -51,7 +53,6 @@ describe('vc', () => {
    */
   async function createVc(): Promise<string> {
     if (!config.config.invite) throw Error();
-    const vcIssuerService = new VerifiableCredentialIssuerService();
 
     return await vcIssuerService.createVerifiableCredential(
       {
@@ -71,7 +72,6 @@ describe('vc', () => {
    * @returns A JWT-encoded verifiable presentation with example data
    */
   async function createVp(): Promise<string> {
-    const vcIssuerService = new VerifiableCredentialIssuerService();
     const vc1 = await createVc();
     const vc2 = await createVc();
     return await vcIssuerService.createVerifiablePresentation(
@@ -92,6 +92,47 @@ describe('vc', () => {
     const vc = await createVc();
     logger.debug(vc);
     expect(vc).toBeDefined();
+  }, 15000);
+
+  // it('create invalid vc', async () => {
+  //   if (!config.config.invite) throw Error();
+
+  //   jest
+  //     .spyOn(cryptoServiceRSA.keyPair.privateKey, 'algorithm', 'get')
+  //     .mockReturnValue(null);
+
+  //   return await vcIssuerService.createVerifiableCredential(
+  //     {
+  //       '@context': [],
+  //       type: ['TestCredential'],
+  //       credentialSubject: { id: 'did:max:mustermann' },
+  //       id: 'unique_id',
+  //       issuer: config.config.invite.id,
+  //       // nonce: 'randomVC',
+  //     },
+  //     cryptoServiceRSA
+  //   );
+  // }, 15000);
+
+  it('test set expiration date', async () => {
+    if (!config.config.invite) throw Error();
+
+    const expDate = 12345;
+    const vc = await vcIssuerService.createVerifiableCredential(
+      {
+        '@context': [],
+        type: ['TestCredential'],
+        credentialSubject: { id: 'did:max:mustermann' },
+        id: 'unique_id',
+        issuer: config.config.invite.id,
+        expirationDate: expDate,
+        // nonce: 'randomVC',
+      },
+      cryptoServiceRSA
+    );
+
+    const vcJWT = new JWT(vc);
+    expect(vcJWT.getPayload().exp).toEqual(expDate);
   }, 15000);
 
   it('create vp', async () => {
