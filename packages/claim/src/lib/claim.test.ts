@@ -46,7 +46,7 @@ describe('test claim.ts', () => {
       name: 'Max Mustermann',
     };
     claim = await createClaim(val, cryptoService, config);
-  }, 10000);
+  }, 15000);
   it('getTemplateId', async () => {
     const templateId = claim.getTemplateId();
     expect(templateId).toBeDefined();
