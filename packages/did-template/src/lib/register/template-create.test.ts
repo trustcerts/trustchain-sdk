@@ -50,7 +50,7 @@ describe('test template service', () => {
     const key = (
       await wallet.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        defaultCryptoKeyService.algorithm
       )
     )[0];
     await cryptoService.init(key);

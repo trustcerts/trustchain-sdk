@@ -51,7 +51,7 @@ describe('vc', () => {
     const rsaKey = (
       await walletService.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        rsaCryptoKeyService.keyType
+        rsaCryptoKeyService.algorithm
       )
     )[0];
     if (rsaKey !== undefined) {
@@ -62,7 +62,7 @@ describe('vc', () => {
     const ecKey = (
       await walletService.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        ecCryptoKeyService.keyType
+        ecCryptoKeyService.algorithm
       )
     )[0];
     if (ecKey !== undefined) {

@@ -1,9 +1,9 @@
 import { defaultCryptoKeyService } from '..';
 import { DecryptedKeyPair } from './decrypted-key-pair';
 
-export const testKey: DecryptedKeyPair = {
+export const testKey: DecryptedKeyPair<RsaHashedKeyGenParams> = {
   identifier: 'testKey',
-  keyType: defaultCryptoKeyService.keyType,
+  algorithm: defaultCryptoKeyService.algorithm,
   privateKey: {
     key_ops: ['sign'],
     ext: true,

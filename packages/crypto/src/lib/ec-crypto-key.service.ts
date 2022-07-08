@@ -5,19 +5,25 @@ import { hashAlgorithm, subtle } from './values';
 import { exportKey } from './key';
 
 export class ECCryptoKeyService extends CryptoKeyService {
-  keyType = 'EC';
-
-  async generateKeyPair(id: string): Promise<DecryptedKeyPair> {
-    const params: EcKeyGenParams = {
+  constructor(
+    public algorithm: EcKeyGenParams = {
       name: 'ECDSA',
       namedCurve: 'P-384',
-    };
-    const keys = await subtle.generateKey(params, true, ['sign', 'verify']);
+    }
+  ) {
+    super();
+  }
+
+  async generateKeyPair(id: string): Promise<DecryptedKeyPair<EcKeyGenParams>> {
+    const keys = await subtle.generateKey(this.algorithm, true, [
+      'sign',
+      'verify',
+    ]);
     return {
       privateKey: await exportKey(keys.privateKey),
       publicKey: await exportKey(keys.publicKey),
       identifier: `${id}#${await this.getFingerPrint(keys.publicKey)}`,
-      keyType: this.keyType,
+      algorithm: this.algorithm,
     };
   }
 

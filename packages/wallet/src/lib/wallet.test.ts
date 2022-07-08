@@ -44,7 +44,7 @@ describe('wallet', () => {
       // Add a key for each verification relationship
       const key = await walletService.addKey(
         Object.values(VerificationRelationshipType),
-        cryptoKeyService.keyType
+        cryptoKeyService.algorithm
       );
 
       // Check if the key is found by its identifier
@@ -52,9 +52,9 @@ describe('wallet', () => {
 
       // Check if the key is found by vrType and signatureType
       Object.values(VerificationRelationshipType).forEach((vrType) => {
-        expect(walletService.find(vrType, cryptoKeyService.keyType)).toContain(
-          key
-        );
+        expect(
+          walletService.find(vrType, cryptoKeyService.algorithm)
+        ).toContain(key);
       });
 
       // Remove the key

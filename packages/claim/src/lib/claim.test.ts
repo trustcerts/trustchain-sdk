@@ -35,7 +35,7 @@ describe('test claim.ts', () => {
     const key = (
       await wallet.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        defaultCryptoKeyService.algorithm
       )
     )[0];
     // init crypto service for assertion

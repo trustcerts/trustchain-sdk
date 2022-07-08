@@ -1,6 +1,6 @@
 import { DecryptedKeyPair } from './decrypted-key-pair';
 import { exportKey, importKey } from './key';
-import { defaultAlgorithm, signInput } from './sign';
+import { signInput } from './sign';
 
 /**
  * Service to handle actions that include the own keypair that is loaded into the service.

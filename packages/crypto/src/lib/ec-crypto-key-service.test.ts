@@ -1,7 +1,7 @@
 import { DecryptedKeyPair, ECCryptoKeyService } from '@trustcerts/crypto';
 
 describe('test ec-crypto-key-service.ts', () => {
-  const testKey: DecryptedKeyPair = {
+  const testKey: DecryptedKeyPair<EcKeyGenParams> = {
     privateKey: {
       key_ops: ['sign'],
       ext: true,
@@ -20,7 +20,10 @@ describe('test ec-crypto-key-service.ts', () => {
       crv: 'P-384',
     },
     identifier: 'testKey#7zHB3gvjci5CSzNkpWLegzeAcGNzqDVyH6VNoVTVcUrd',
-    keyType: 'EC',
+    algorithm: {
+      name: 'ECDSA',
+      namedCurve: 'P-384',
+    },
   };
   const testKeyFingerPrint = '7zHB3gvjci5CSzNkpWLegzeAcGNzqDVyH6VNoVTVcUrd';
 

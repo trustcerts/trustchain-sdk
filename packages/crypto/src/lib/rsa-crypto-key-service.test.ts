@@ -1,8 +1,12 @@
-import { DecryptedKeyPair, RSACryptoKeyService } from '@trustcerts/crypto';
+import {
+  DecryptedKeyPair,
+  hashAlgorithm,
+  RSACryptoKeyService,
+} from '@trustcerts/crypto';
 
 // TODO: Refactor RSA & EC cryptoKeyService tests / code reuse?
 describe('test rsa-crypto-key-service.ts', () => {
-  const testKey: DecryptedKeyPair = {
+  const testKey: DecryptedKeyPair<RsaHashedKeyGenParams> = {
     privateKey: {
       key_ops: ['sign'],
       ext: true,
@@ -26,7 +30,12 @@ describe('test rsa-crypto-key-service.ts', () => {
       alg: 'RS256',
     },
     identifier: 'testKey#3HhobuvkEoemuVQnTCa5jz1k1KPajifg98DEVSGZ1vC4',
-    keyType: 'RSA',
+    algorithm: {
+      name: 'RSASSA-PKCS1-v1_5',
+      modulusLength: 2048,
+      publicExponent: new Uint8Array([1, 0, 1]),
+      hash: hashAlgorithm,
+    },
   };
 
   const testKeyFingerPrint = '3HhobuvkEoemuVQnTCa5jz1k1KPajifg98DEVSGZ1vC4';

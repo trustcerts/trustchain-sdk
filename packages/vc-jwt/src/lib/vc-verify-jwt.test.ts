@@ -68,7 +68,7 @@ describe('vc', () => {
     const rsaKey = (
       await walletService.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        defaultCryptoKeyService.algorithm
       )
     )[0];
     if (rsaKey !== undefined) {
