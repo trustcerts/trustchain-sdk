@@ -2,7 +2,7 @@ import { DecryptedKeyPair } from './decrypted-key-pair';
 import { subtle } from './values';
 
 export abstract class CryptoKeyService {
-  abstract algorithm!: Algorithm;
+  abstract algorithm: Algorithm;
 
   /**
    * Generates a new keyair

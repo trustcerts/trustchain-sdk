@@ -6,26 +6,23 @@ describe('test ec-crypto-key-service.ts', () => {
       key_ops: ['sign'],
       ext: true,
       kty: 'EC',
-      x: 'XtEAP3QH1XrcHbX1NyNrDnnSCKeBjtUv-nuQa0Peq9IgfB7TFpSLkZ3suLdlxtxH',
-      y: 't1hAhbqEerVLyQGwREb1ptVbFk0XhSB6y8E1jleia0YbF9CUBwmsZ1QPzSayBWJM',
-      d: 'JIWQ80paK6t8659q0I0uaeTqI6ACqzYITzr3JoSxMwrxlyRZJx3YkhMt4icwFQpO',
-      crv: 'P-384',
+      x: 'Fqjnj008-mC0IgOcbzglbi_NFh-zxryRNt7zPcqlu1I',
+      y: 'DR1LuRrxRemGcnVBEzI_mVpBCAZNbOj76ThHIKl0lC0',
+      d: '97VNPTBOInX61FuluyfzPcrlFKETig2kKjMDgvVR4so',
+      crv: 'P-256',
     },
     publicKey: {
       key_ops: ['verify'],
       ext: true,
       kty: 'EC',
-      x: 'XtEAP3QH1XrcHbX1NyNrDnnSCKeBjtUv-nuQa0Peq9IgfB7TFpSLkZ3suLdlxtxH',
-      y: 't1hAhbqEerVLyQGwREb1ptVbFk0XhSB6y8E1jleia0YbF9CUBwmsZ1QPzSayBWJM',
-      crv: 'P-384',
+      x: 'Fqjnj008-mC0IgOcbzglbi_NFh-zxryRNt7zPcqlu1I',
+      y: 'DR1LuRrxRemGcnVBEzI_mVpBCAZNbOj76ThHIKl0lC0',
+      crv: 'P-256',
     },
-    identifier: 'testKey#7zHB3gvjci5CSzNkpWLegzeAcGNzqDVyH6VNoVTVcUrd',
-    algorithm: {
-      name: 'ECDSA',
-      namedCurve: 'P-384',
-    },
+    identifier: 'testKey#3jC2Vq3YpUBe3uGdUCHAnYz1iZFAKHTXmhs7Ev1QPCpP',
+    algorithm: { name: 'ECDSA', namedCurve: 'P-256' },
   };
-  const testKeyFingerPrint = '7zHB3gvjci5CSzNkpWLegzeAcGNzqDVyH6VNoVTVcUrd';
+  const testKeyFingerPrint = '3jC2Vq3YpUBe3uGdUCHAnYz1iZFAKHTXmhs7Ev1QPCpP';
 
   let ecCryptoKeyService: ECCryptoKeyService;
 

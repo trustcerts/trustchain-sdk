@@ -22,11 +22,19 @@ export class CryptoService {
    * Loads keys if passed. If not one keypair is generated.
    */
   public async init(keyPair: DecryptedKeyPair): Promise<void> {
-    console.log(keyPair);
-
     this.keyPair = {
-      privateKey: await importKey(keyPair.privateKey, 'jwk', ['sign']),
-      publicKey: await importKey(keyPair.publicKey, 'jwk', ['verify']),
+      privateKey: await importKey(
+        keyPair.privateKey,
+        'jwk',
+        ['sign'],
+        keyPair.algorithm
+      ),
+      publicKey: await importKey(
+        keyPair.publicKey,
+        'jwk',
+        ['verify'],
+        keyPair.algorithm
+      ),
     };
     this.fingerPrint = keyPair.identifier;
   }

@@ -8,7 +8,7 @@ export class ECCryptoKeyService extends CryptoKeyService {
   constructor(
     public algorithm: EcKeyGenParams = {
       name: 'ECDSA',
-      namedCurve: 'P-384',
+      namedCurve: 'P-256',
     }
   ) {
     super();
