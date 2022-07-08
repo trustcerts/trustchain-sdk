@@ -1,6 +1,6 @@
 import { DecryptedKeyPair } from './decrypted-key-pair';
 import { exportKey, importKey } from './key';
-import { signInput } from './sign';
+import { defaultAlgorithm, signInput } from './sign';
 
 /**
  * Service to handle actions that include the own keypair that is loaded into the service.
@@ -22,6 +22,8 @@ export class CryptoService {
    * Loads keys if passed. If not one keypair is generated.
    */
   public async init(keyPair: DecryptedKeyPair): Promise<void> {
+    console.log(keyPair);
+
     this.keyPair = {
       privateKey: await importKey(keyPair.privateKey, 'jwk', ['sign']),
       publicKey: await importKey(keyPair.publicKey, 'jwk', ['verify']),

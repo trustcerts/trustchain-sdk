@@ -13,7 +13,7 @@ export function importKey(
   keyValue: JsonWebKey,
   format: 'jwk' = 'jwk',
   keyUsages: KeyUsage[],
-  algorithm = defaultAlgorithm
+  algorithm: Algorithm = defaultAlgorithm
 ): Promise<CryptoKey> {
   // TODO map keyValue field to find out the correct algorithm
   return subtle.importKey(

@@ -1,6 +1,10 @@
 import { ConfigService } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
-import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
+import {
+  CryptoService,
+  RSACryptoKeyService,
+  ECCryptoKeyService,
+} from '@trustcerts/crypto';
 import {
   DidNetworks,
   Identifier,
@@ -19,6 +23,8 @@ describe('vc', () => {
 
   let cryptoServiceRSA: CryptoService;
 
+  let cryptoServiceEC: CryptoService;
+
   let walletService: WalletService;
 
   const vcIssuerService = new VerifiableCredentialIssuerService();
@@ -31,7 +37,13 @@ describe('vc', () => {
     config = new LocalConfigService(testValues.filePath);
     await config.init(testValues.configValues);
 
-    walletService = new WalletService(config);
+    const rsaCryptoKeyService = new RSACryptoKeyService();
+    const ecCryptoKeyService = new ECCryptoKeyService();
+
+    walletService = new WalletService(config, [
+      rsaCryptoKeyService,
+      ecCryptoKeyService,
+    ]);
     await walletService.init();
 
     cryptoServiceRSA = new CryptoService();
@@ -39,11 +51,22 @@ describe('vc', () => {
     const rsaKey = (
       await walletService.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        rsaCryptoKeyService.keyType
       )
     )[0];
     if (rsaKey !== undefined) {
       await cryptoServiceRSA.init(rsaKey);
+    }
+
+    cryptoServiceEC = new CryptoService();
+    const ecKey = (
+      await walletService.findOrCreate(
+        VerificationRelationshipType.assertionMethod,
+        ecCryptoKeyService.keyType
+      )
+    )[0];
+    if (ecKey !== undefined) {
+      await cryptoServiceEC.init(ecKey);
     }
   }, 10000);
 
@@ -114,10 +137,10 @@ describe('vc', () => {
   //   );
   // }, 15000);
 
-  it('test set expiration date', async () => {
+  it('test set expiration date VC', async () => {
     if (!config.config.invite) throw Error();
 
-    const expDate = 12345;
+    const expDate = 1657372884;
     const vc = await vcIssuerService.createVerifiableCredential(
       {
         '@context': [],
@@ -133,6 +156,28 @@ describe('vc', () => {
 
     const vcJWT = new JWT(vc);
     expect(vcJWT.getPayload().exp).toEqual(expDate);
+  }, 15000);
+
+  it('test set expiration date VP', async () => {
+    if (!config.config.invite) throw Error();
+
+    const expDate = 1657372884;
+    const vp = await vcIssuerService.createVerifiablePresentation(
+      {
+        '@context': [],
+        type: ['TestPresentation'],
+        verifiableCredentials: [],
+        domain: 'domain',
+        challenge: 'challenge',
+        holder: 'did:max:mustermann',
+        nonce: 'randomVP',
+        expirationDate: expDate,
+      },
+      cryptoServiceRSA
+    );
+
+    const vpJWT = new JWT(vp);
+    expect(vpJWT.getPayload().exp).toEqual(expDate);
   }, 15000);
 
   it('create vp', async () => {

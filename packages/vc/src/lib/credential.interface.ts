@@ -24,7 +24,7 @@ export interface IVerifiablePresentationArguments {
   holder: string;
   challenge: string;
   domain: string;
-  expirationDate?: string;
+  expirationDate?: number | string;
   nonce: string;
 }
 
