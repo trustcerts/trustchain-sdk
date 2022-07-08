@@ -41,6 +41,7 @@ jobs:
       - uses: trustcerts/nrwl-nx-action@v2.1.3
         with:
           targets: install,build,lint
+          all: 'true'
           nxCloud: true
       # - name: Run tests
       # run: npx nx affected --base=last-release --target=test --parallel=false
