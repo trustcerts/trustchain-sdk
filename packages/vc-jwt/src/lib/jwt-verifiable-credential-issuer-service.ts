@@ -61,9 +61,7 @@ export class VerifiableCredentialIssuerService {
 
       vcPayload.credentialStatus =
         await revocationService.getNewCredentialStatus();
-      vcPayload['@context']?.push(
-        'https://w3id.org/vc-revocation-list-2020/v1'
-      );
+      vcPayload['@context'].push('https://w3id.org/vc-revocation-list-2020/v1');
     }
 
     /* Set values according to https://w3c.github.io/vc-data-model/#jwt-encoding

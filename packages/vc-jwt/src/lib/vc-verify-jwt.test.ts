@@ -15,6 +15,19 @@ import {
   JWTVerifiableCredentialVerifierService,
 } from '@trustcerts/vc-jwt';
 import { JWTPayloadVC, JWTPayloadVP } from '@trustcerts/vc';
+// import * as jose from 'jose';
+
+// jest.mock('jose', () => {
+//   const originalModule = jest.requireActual('jose');
+//   return {
+//     __esModule: true,
+//     ...originalModule,
+//     jwtVerify: jest.fn((jwt: string, key: jose.KeyLike) => {
+//       console.log('got a JWT!');
+//       throw new Error('JWT verify error');
+//     }),
+//   };
+// });
 
 /**
  * Test vc class.
@@ -132,13 +145,6 @@ describe('vc', () => {
     expect(await vcVerifierService.verifyPresentation(vp)).toBe(true);
   }, 15000);
 
-  it('verify vp', async () => {
-    const vp = await createVp();
-    logger.debug(vp);
-    const vcVerifierService = new JWTVerifiableCredentialVerifierService();
-    expect(await vcVerifierService.verifyPresentation(vp)).toBe(true);
-  }, 15000);
-
   it('test getPayload', async () => {
     const vpJWT = new JWT(vpJWTString);
     const payload = vpJWT.getPayload();
@@ -161,6 +167,30 @@ describe('vc', () => {
     const vpJWT = new JWT(vpJWTString);
     const signature = vpJWT.getSignature();
     expect(signature).toEqual(vpSignature);
+  }, 15000);
+
+  it('verify revoked vc', async () => {
+    const vc = await createVc();
+    const vcVerifierService = new JWTVerifiableCredentialVerifierService();
+
+    vcVerifierService.isRevoked = jest.fn().mockReturnValueOnce(true);
+
+    expect(await vcVerifierService.verifyCredential(vc)).toEqual(false);
+  }, 15000);
+
+  it('verify vp with invalid vcs', async () => {
+    const vp = await createVp();
+    const vcVerifierService = new JWTVerifiableCredentialVerifierService();
+    vcVerifierService.verifyCredential = jest.fn().mockReturnValueOnce(false);
+    expect(await vcVerifierService.verifyPresentation(vp)).toBe(false);
+  }, 15000);
+
+  it('verify invalid vp', async () => {
+    let vp = await createVp();
+    // Remove last character of VP (part of JWT signature) to make the signature invalid
+    vp = vp.slice(0, -1);
+    const vcVerifierService = new JWTVerifiableCredentialVerifierService();
+    expect(await vcVerifierService.verifyPresentation(vp)).toBe(false);
   }, 15000);
 
   //Beispiel, um Zugriff auf Properties der VC/VP zu demonstrieren
