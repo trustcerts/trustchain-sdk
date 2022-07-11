@@ -187,7 +187,7 @@ describe('vc', () => {
 
   it('verify invalid vc', async () => {
     let vc = await createVc();
-    // Remove last character of VP (part of JWT signature) to make the signature invalid
+    // Remove last character of VC (part of JWT signature) to make the signature invalid
     vc = vc.slice(0, -1);
 
     const vcVerifierService = new JWTVerifiableCredentialVerifierService();
