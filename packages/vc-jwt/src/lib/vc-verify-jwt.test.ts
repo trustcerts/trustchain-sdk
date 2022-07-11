@@ -185,10 +185,20 @@ describe('vc', () => {
     expect(await vcVerifierService.verifyPresentation(vp)).toBe(false);
   }, 15000);
 
+  it('verify invalid vc', async () => {
+    let vc = await createVc();
+    // Remove last character of VP (part of JWT signature) to make the signature invalid
+    vc = vc.slice(0, -1);
+
+    const vcVerifierService = new JWTVerifiableCredentialVerifierService();
+    expect(await vcVerifierService.verifyCredential(vc)).toEqual(false);
+  }, 15000);
+
   it('verify invalid vp', async () => {
     let vp = await createVp();
     // Remove last character of VP (part of JWT signature) to make the signature invalid
     vp = vp.slice(0, -1);
+
     const vcVerifierService = new JWTVerifiableCredentialVerifierService();
     expect(await vcVerifierService.verifyPresentation(vp)).toBe(false);
   }, 15000);
