@@ -89,6 +89,10 @@ describe('vc', () => {
     }
   }, 10000);
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   /**
    * Creates an example JWT-encoded verifiable credential for testing
    * @returns A JWT-encoded verifiable credential with example data

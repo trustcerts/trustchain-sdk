@@ -49,6 +49,9 @@ describe('vc', () => {
       await cryptoServiceRSA.init(rsaKey);
     }
   }, 10000);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   /**
    * Creates an example JWT-encoded verifiable credential for testing
