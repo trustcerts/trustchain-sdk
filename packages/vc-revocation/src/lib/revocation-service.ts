@@ -112,7 +112,7 @@ export class RevocationService {
    */
   private async loadConfig(): Promise<void> {
     try {
-      console.debug('read revocation list config');
+      console.log('read revocation list config');
       this.revocationListConfig = JSON.parse(
         read(this.revocationListConfigPath)
       ) as IRevocationListConfig;
@@ -120,13 +120,13 @@ export class RevocationService {
       this.revocationListCredential = JSON.parse(
         read(this.revocationListCredentialPath)
       ) as IRevocationListCredential;
-      console.debug('read revocation list done');
-      console.debug(this.revocationListConfigPath);
-      console.debug(this.revocationListConfig);
+      console.log('read revocation list done');
+      console.log(this.revocationListConfigPath);
+      console.log(this.revocationListConfig);
     } catch (e) {
-      console.debug('init revocation list config');
+      console.log('init revocation list config');
       await this.initConfig();
-      console.debug('init revocation list config done');
+      console.log('init revocation list config done');
     }
   }
 
