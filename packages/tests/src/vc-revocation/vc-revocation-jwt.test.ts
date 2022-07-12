@@ -106,4 +106,65 @@ describe('vc', () => {
       await revocationService.isRevoked(vcJWTPayload.vc.credentialStatus)
     ).toBe(false);
   }, 15000);
+
+  it('test new credential on full revocation list', async () => {
+    const revocationService = new RevocationService();
+    await revocationService.init();
+
+    jest
+      .spyOn(RevocationService.prototype as any, 'isRevocationListFull')
+      .mockReturnValueOnce(true);
+
+    await expect(
+      revocationService.getNewCredentialStatus()
+    ).rejects.toThrowError('The revocation list is full!');
+  }, 15000);
+
+  it('test revocation list with invalid credential revocation list', async () => {
+    const vc = await createVc();
+    const vcJWT = new JWT(vc);
+    const vcJWTPayload = vcJWT.getPayload() as JWTPayloadVC;
+    const revocationService = new RevocationService();
+    await revocationService.init();
+
+    if (!vcJWTPayload.vc.credentialStatus) throw Error();
+
+    vcJWTPayload.vc.credentialStatus.revocationListCredential = 'different url';
+
+    // Expect isRevoked to fail because of invalid URL
+    await expect(
+      revocationService.isRevoked(vcJWTPayload.vc.credentialStatus)
+    ).rejects.toThrowError(
+      'Revocation list URL in credentialStatus does not equal this revocation list URL'
+    );
+
+    // Expect setRevoked to fail because of invalid URL
+    await expect(
+      revocationService.setRevoked(vcJWTPayload.vc.credentialStatus, true)
+    ).rejects.toThrowError(
+      'Revocation list URL in credentialStatus does not equal this revocation list URL'
+    );
+  }, 15000);
+
+  it('test revocation list with invalid index', async () => {
+    const vc = await createVc();
+    const vcJWT = new JWT(vc);
+    const vcJWTPayload = vcJWT.getPayload() as JWTPayloadVC;
+    const revocationService = new RevocationService();
+    await revocationService.init();
+
+    if (!vcJWTPayload.vc.credentialStatus) throw Error();
+
+    vcJWTPayload.vc.credentialStatus.revocationListIndex = '999999999';
+
+    // Expect isRevoked to fail because of invalid index
+    await expect(
+      revocationService.isRevoked(vcJWTPayload.vc.credentialStatus)
+    ).rejects.toThrowError('index is not used yet');
+
+    // Expect setRevoked to fail because of invalid index
+    await expect(
+      revocationService.setRevoked(vcJWTPayload.vc.credentialStatus, true)
+    ).rejects.toThrowError('index is not used yet');
+  }, 15000);
 });
