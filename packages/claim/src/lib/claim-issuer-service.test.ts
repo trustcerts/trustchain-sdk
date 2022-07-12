@@ -1,18 +1,24 @@
 import { ClaimIssuerService, ClaimVerifierService } from '@trustcerts/claim';
-import { ConfigService } from '@trustcerts/config';
+import { ConfigService, Invite } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
 import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
 import {
   DidNetworks,
   Identifier,
+  InitDidManagerConfigValues,
   VerificationRelationshipType,
 } from '@trustcerts/did';
-import { SignatureIssuerService } from '@trustcerts/did-hash';
+import {
+  DidHash,
+  DidHashResolver,
+  SignatureIssuerService,
+} from '@trustcerts/did-hash';
 import { createClaim } from './claim-test-helpers';
 import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
 import { readFileSync } from 'fs';
 import { promisify } from 'util';
+import { DidHashStructure } from '@trustcerts/gateway';
 
 /**
  * Test claim class.
@@ -84,5 +90,46 @@ describe('claim', () => {
     const validation = claimLoaded.getValidation();
     if (!validation) throw new Error();
     expect(validation.revoked).toBeDefined();
+  }, 15000);
+
+  it('create claim with invalid schema', async () => {
+    // Schema expects 'random' and 'name', so we'll use 'fullName' instead of 'name' to use an invalid schema
+    const val = {
+      random: randomBytes(16).toString('hex'),
+      fullName: 'Max Mustermann',
+    };
+    await expect(createClaim(val, cryptoService, config)).rejects.toThrowError(
+      'input does not match with schema'
+    );
+  }, 15000);
+
+  it('revoke a claim with invalid hash', async () => {
+    const value = {
+      random: randomBytes(16).toString('hex'),
+      name: 'Max Mustermann',
+    };
+    const claim = await createClaim(value, cryptoService, config);
+    await promisify(setTimeout)(2000);
+    const claimIssuer = new ClaimIssuerService();
+    const signatureIssuer = new SignatureIssuerService(
+      testValues.network.gateways,
+      cryptoService
+    );
+    // Replace the content of ClaimValues with a random value so it results in an invalid hash
+    claim.values['name'] = 'Not Max Mustermann' + new Date().getTime();
+    await expect(
+      claimIssuer.revoke(claim, signatureIssuer)
+    ).rejects.toThrowError('hash of claim not found');
+  }, 15000);
+
+  it('create claim with invalid config invite', async () => {
+    const value = {
+      random: randomBytes(16).toString('hex'),
+      name: 'Max Mustermann',
+    };
+    config.config.invite = null as any as Invite;
+    await expect(
+      createClaim(value, cryptoService, config)
+    ).rejects.toThrowError();
   }, 15000);
 });

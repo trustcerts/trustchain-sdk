@@ -1,4 +1,4 @@
-import { ClaimValues, ClaimVerifierService } from '@trustcerts/claim';
+import { Claim, ClaimValues, ClaimVerifierService } from '@trustcerts/claim';
 import { ConfigService } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
 import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
@@ -12,6 +12,9 @@ import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
 import { readFileSync } from 'fs';
 import { promisify } from 'util';
+import { CompressionType } from '@trustcerts/gateway';
+import { DidSchema, DidSchemaResolver } from '@trustcerts/did-schema';
+import { DidHashResolver } from '@trustcerts/did-hash';
 
 /**
  * Test claim class.
@@ -50,20 +53,83 @@ describe('claim', () => {
       random: randomBytes(16).toString('hex'),
       name: 'Max Mustermann',
     };
+    const claims: Claim[] = [];
+
+    // Test with all possible template compression types
+    for (const templateCompressionType of Object.values(CompressionType)) {
+      claims.push(
+        await createClaim(
+          claimValues,
+          cryptoService,
+          config,
+          templateCompressionType
+        )
+      );
+    }
+    for (const claim of claims) {
+      expect(claim.values).toEqual(claimValues);
+      await promisify(setTimeout)(2000);
+      const service = new ClaimVerifierService('localhost');
+      const claimLoaded = await service.get(
+        claim.getUrl().split('/').slice(1).join('/')
+      );
+      const validation = claimLoaded.getValidation();
+      if (!validation) throw Error();
+      expect(validation.revoked).toBeUndefined();
+      expect(claim.getUrl()).toEqual(claimLoaded.getUrl());
+      expect(await claim.getHtml()).toEqual(await claimLoaded.getHtml());
+      expect(claim.values).toEqual(claimLoaded.values);
+    }
+  }, 20000);
+
+  it('read a claim with invalid schema', async () => {
+    const claimValues: ClaimValues = {
+      random: randomBytes(16).toString('hex'),
+      name: 'Max Mustermann',
+    };
     const claim = await createClaim(claimValues, cryptoService, config);
+
     expect(claim.values).toEqual(claimValues);
     await promisify(setTimeout)(2000);
-    const service = new ClaimVerifierService('localhost');
-    const claimLoaded = await service.get(
-      claim.getUrl().split('/').slice(1).join('/')
+
+    // Mock DidSchema.getSchema() so the schema validation will fail
+    jest.spyOn(DidSchema.prototype, 'getSchema').mockReturnValueOnce(
+      JSON.stringify({
+        type: 'object',
+        properties: {
+          thisIsADifferentProperty: { type: 'string' },
+        },
+        required: ['thisIsADifferentProperty'],
+        additionalProperties: false,
+      })
     );
-    const validation = claimLoaded.getValidation();
-    if (!validation) throw Error();
-    expect(validation.revoked).toBeUndefined();
-    expect(claim.getUrl()).toEqual(claimLoaded.getUrl());
-    expect(await claim.getHtml()).toEqual(await claimLoaded.getHtml());
-    expect(claim.values).toEqual(claimLoaded.values);
-  }, 15000);
+
+    const service = new ClaimVerifierService('localhost');
+    await expect(
+      service.get(claim.getUrl().split('/').slice(1).join('/'))
+    ).rejects.toThrowError('values do not match with schema');
+  }, 20000);
+
+  it('read a claim with invalid hash', async () => {
+    const claimValues: ClaimValues = {
+      random: randomBytes(16).toString('hex'),
+      name: 'Max Mustermann',
+    };
+    const claim = await createClaim(claimValues, cryptoService, config);
+
+    expect(claim.values).toEqual(claimValues);
+    await promisify(setTimeout)(2000);
+
+    // Mock DidHashResolver.load() so the claim hash verification will fail
+    jest
+      .spyOn(DidHashResolver.prototype, 'load')
+      .mockRejectedValueOnce('mockError');
+
+    const service = new ClaimVerifierService('localhost');
+    await expect(
+      service.get(claim.getUrl().split('/').slice(1).join('/'))
+    ).rejects.toThrowError('failed to verify');
+  }, 20000);
 
   it('get hash', async () => {
     const claimValues: ClaimValues = {
