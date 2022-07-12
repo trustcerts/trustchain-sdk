@@ -60,7 +60,10 @@ describe('test claim.ts', () => {
     expect(html).toEqual('<h1>Hello Max Mustermann</h1>');
   }, 15000);
   it('getPdf', async () => {
-    // TODO: test getPdf()
+    const pdf = await claim.getPdf(
+      readFileSync('./packages/claim/src/lib/test.pdf')
+    );
+    expect(pdf).toBeDefined();
   }, 15000);
   it('fillParagraph', async () => {
     // TODO: test fillParagraph()
