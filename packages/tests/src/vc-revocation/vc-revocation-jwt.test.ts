@@ -49,6 +49,7 @@ describe('vc', () => {
       await cryptoServiceRSA.init(rsaKey);
     }
   }, 10000);
+
   beforeEach(() => {
     jest.clearAllMocks();
   });

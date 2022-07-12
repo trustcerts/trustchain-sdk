@@ -1,6 +1,6 @@
 export let logger = console;
 
-let loggingDebugDisabled = true;
+let loggingDebugDisabled = false;
 export function disableLogging() {
   logger.debug = () => {
     if (!loggingDebugDisabled) {
