@@ -29,7 +29,8 @@ export class ECCryptoKeyService extends CryptoKeyService {
 
   async getFingerPrint(key: CryptoKey | JsonWebKey): Promise<string> {
     const jwk = await this.getJwk(key);
-    if (await !this.isCorrectKeyType(jwk)) throw new Error('key not supported');
+    if (!(await this.isCorrectKeyType(jwk)))
+      throw new Error('key not supported');
     const values = {
       crv: jwk.crv,
       kty: jwk.kty,

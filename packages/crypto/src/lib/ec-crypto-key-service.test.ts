@@ -1,29 +1,7 @@
 import { DecryptedKeyPair, ECCryptoKeyService } from '@trustcerts/crypto';
+import { ECTestKey, ECTestKeyFingerPrint, RSATestKey } from './test-values';
 
 describe('test ec-crypto-key-service.ts', () => {
-  const testKey: DecryptedKeyPair<EcKeyGenParams> = {
-    privateKey: {
-      key_ops: ['sign'],
-      ext: true,
-      kty: 'EC',
-      x: 'Fqjnj008-mC0IgOcbzglbi_NFh-zxryRNt7zPcqlu1I',
-      y: 'DR1LuRrxRemGcnVBEzI_mVpBCAZNbOj76ThHIKl0lC0',
-      d: '97VNPTBOInX61FuluyfzPcrlFKETig2kKjMDgvVR4so',
-      crv: 'P-256',
-    },
-    publicKey: {
-      key_ops: ['verify'],
-      ext: true,
-      kty: 'EC',
-      x: 'Fqjnj008-mC0IgOcbzglbi_NFh-zxryRNt7zPcqlu1I',
-      y: 'DR1LuRrxRemGcnVBEzI_mVpBCAZNbOj76ThHIKl0lC0',
-      crv: 'P-256',
-    },
-    identifier: 'testKey#3jC2Vq3YpUBe3uGdUCHAnYz1iZFAKHTXmhs7Ev1QPCpP',
-    algorithm: { name: 'ECDSA', namedCurve: 'P-256' },
-  };
-  const testKeyFingerPrint = '3jC2Vq3YpUBe3uGdUCHAnYz1iZFAKHTXmhs7Ev1QPCpP';
-
   let ecCryptoKeyService: ECCryptoKeyService;
 
   beforeAll(async () => {
@@ -37,21 +15,26 @@ describe('test ec-crypto-key-service.ts', () => {
   }, 7000);
   it('test getFingerPrint', async () => {
     const fingerPrintPrivateKey = await ecCryptoKeyService.getFingerPrint(
-      testKey.privateKey
+      ECTestKey.privateKey
     );
-    expect(fingerPrintPrivateKey).toEqual(testKeyFingerPrint);
+    expect(fingerPrintPrivateKey).toEqual(ECTestKeyFingerPrint);
 
     const fingerPrintPublicKey = await ecCryptoKeyService.getFingerPrint(
-      testKey.publicKey
+      ECTestKey.publicKey
     );
-    expect(fingerPrintPublicKey).toEqual(testKeyFingerPrint);
+    expect(fingerPrintPublicKey).toEqual(ECTestKeyFingerPrint);
+
+    // expect getFingerPrint() with wrong key type (RSA) to fail
+    await expect(
+      ecCryptoKeyService.getFingerPrint(RSATestKey.privateKey)
+    ).rejects.toThrowError('key not supported');
   }, 7000);
   it('test isCorrectKeyType', async () => {
     expect(
-      await ecCryptoKeyService.isCorrectKeyType(testKey.privateKey)
+      await ecCryptoKeyService.isCorrectKeyType(ECTestKey.privateKey)
     ).toBeTruthy();
     expect(
-      await ecCryptoKeyService.isCorrectKeyType(testKey.publicKey)
+      await ecCryptoKeyService.isCorrectKeyType(ECTestKey.publicKey)
     ).toBeTruthy();
   }, 7000);
 });

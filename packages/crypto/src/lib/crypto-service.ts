@@ -44,7 +44,6 @@ export class CryptoService {
    * @param value
    */
   public async sign(value: string): Promise<string> {
-    if (!this.keyPair.privateKey) throw Error('no key to sign input');
     return signInput(value, this.keyPair.privateKey);
   }
 
@@ -52,7 +51,6 @@ export class CryptoService {
    * Returns the public key as an json web token.
    */
   getPublicKey(): Promise<JsonWebKey> {
-    if (!this.keyPair.publicKey) throw Error('no public key generated');
     return exportKey(this.keyPair.publicKey);
   }
 }
