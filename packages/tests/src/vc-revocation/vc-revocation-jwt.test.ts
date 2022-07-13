@@ -74,8 +74,6 @@ describe('vc', () => {
     );
   }
 
-  it('init RevocationService', async () => {}, 15000);
-
   it('verify revocation JWT', async () => {
     const vc = await createVc();
     const vcJWT = new JWT(vc);
