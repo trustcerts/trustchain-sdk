@@ -10,8 +10,12 @@ export interface LoaderResponse {
   document: unknown;
   documentUrl: string;
 }
+
+type CacheMapType = {
+  [id: string]: LoaderResponse;
+};
 export class DocumentLoader {
-  private cache: Map<string, LoaderResponse>;
+  private cache: CacheMapType;
   private cachePath = './tmp/docLoader.json';
   private MAX_LOADING_TIME = 5000;
 
@@ -52,15 +56,15 @@ export class DocumentLoader {
   }
 
   public resolveDocumentFromCache(url: string): LoaderResponse | undefined {
-    if (this.cache.has(url)) {
+    if (url in this.cache) {
       logger.debug('Returned cached ' + url);
-      return this.cache.get(url);
+      return this.cache[url];
     }
     return undefined;
   }
 
   public saveDocumentToCache(url: string, doc: LoaderResponse): void {
-    this.cache.set(url, doc);
+    this.cache[url] = doc;
     write(this.cachePath, JSON.stringify(this.cache, null, 4));
   }
 
