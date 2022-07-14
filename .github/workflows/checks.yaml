@@ -46,11 +46,15 @@ jobs:
       # - name: Run tests
       # run: npx nx affected --base=last-release --target=test --parallel=false
       # run: npx nx run-many --target=test --parallel=false --skip-nx-cache=true
+      - name: set experimental features
+        run: export NODE_OPTIONS=--experimental-vm-modules
+
       - uses: trustcerts/nrwl-nx-action@v2.1.3
         with:
           targets: test
           all: 'true'
           parallel: 1
+
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v2
         with:
