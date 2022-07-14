@@ -29,8 +29,7 @@ const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
 export async function createClaim(
   val: ClaimValues,
   cryptoService: CryptoService,
-  config: ConfigService,
-  templateCompressionType: CompressionType = CompressionType.JSON
+  config: ConfigService
 ): Promise<Claim> {
   if (!config.config.invite) throw new Error();
   const template = '<h1>Hello {{ name }}</h1>';
@@ -55,7 +54,7 @@ export async function createClaim(
   templateDid.schemaId = schemaDid.id;
   templateDid.template = template;
   templateDid.compression = {
-    type: templateCompressionType,
+    type: CompressionType.JSON,
   };
   await DidTemplateRegister.save(templateDid, client);
   await promisify(setTimeout)(1000);

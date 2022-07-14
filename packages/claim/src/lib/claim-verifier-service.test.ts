@@ -55,31 +55,19 @@ describe('claim', () => {
     };
     const claims: Claim[] = [];
 
-    // Test with all possible template compression types
-    for (const templateCompressionType of Object.values(CompressionType)) {
-      claims.push(
-        await createClaim(
-          claimValues,
-          cryptoService,
-          config,
-          templateCompressionType
-        )
-      );
-    }
-    for (const claim of claims) {
-      expect(claim.values).toEqual(claimValues);
-      await promisify(setTimeout)(2000);
-      const service = new ClaimVerifierService('localhost');
-      const claimLoaded = await service.get(
-        claim.getUrl().split('/').slice(1).join('/')
-      );
-      const validation = claimLoaded.getValidation();
-      if (!validation) throw Error();
-      expect(validation.revoked).toBeUndefined();
-      expect(claim.getUrl()).toEqual(claimLoaded.getUrl());
-      expect(await claim.getHtml()).toEqual(await claimLoaded.getHtml());
-      expect(claim.values).toEqual(claimLoaded.values);
-    }
+    const claim = await createClaim(claimValues, cryptoService, config);
+    expect(claim.values).toEqual(claimValues);
+    await promisify(setTimeout)(2000);
+    const service = new ClaimVerifierService('localhost');
+    const claimLoaded = await service.get(
+      claim.getUrl().split('/').slice(1).join('/')
+    );
+    const validation = claimLoaded.getValidation();
+    if (!validation) throw Error();
+    expect(validation.revoked).toBeUndefined();
+    expect(claim.getUrl()).toEqual(claimLoaded.getUrl());
+    expect(await claim.getHtml()).toEqual(await claimLoaded.getHtml());
+    expect(claim.values).toEqual(claimLoaded.values);
   }, 20000);
 
   it('read a claim with invalid schema', async () => {

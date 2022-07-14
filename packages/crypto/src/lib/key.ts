@@ -11,7 +11,7 @@ import { subtle } from './values';
  */
 export function importKey(
   keyValue: JsonWebKey,
-  format: 'jwk' = 'jwk',
+  format: 'jwk',
   keyUsages: KeyUsage[],
   algorithm: Algorithm = defaultAlgorithm
 ): Promise<CryptoKey> {

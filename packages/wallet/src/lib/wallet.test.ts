@@ -1,4 +1,4 @@
-import { ConfigService } from '@trustcerts/config';
+import { ConfigService, Invite } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
 import {
   defaultCryptoKeyService,
@@ -81,5 +81,11 @@ describe('wallet', () => {
     await walletService.tidyUp();
 
     expect(walletService.findKeyByID(invalidKey.identifier)).toBeUndefined();
+  }, 15000);
+
+  it('init wallet with invalid config invite', async () => {
+    config.config.invite = null as any as Invite;
+    const walletService = new WalletService(config, []);
+    await expect(walletService.init()).rejects.toThrowError('no id found');
   }, 15000);
 });

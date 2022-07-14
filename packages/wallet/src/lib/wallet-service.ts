@@ -4,6 +4,7 @@ import {
   CryptoService,
   DecryptedKeyPair,
   defaultCryptoKeyService,
+  sortKeys,
 } from '@trustcerts/crypto';
 import {
   DidId,
@@ -219,9 +220,13 @@ export class WalletService {
 
   private getCryptoServiceByType(algorithm: Algorithm): CryptoKeyService {
     const service = this.cryptoKeyServices.find(
-      (service) => service.algorithm === algorithm
+      (service) =>
+        JSON.stringify(sortKeys(service.algorithm)) ==
+        JSON.stringify(sortKeys(algorithm))
     );
-    if (!service) throw Error(`no service found for ${algorithm}`);
+    if (!service) {
+      throw Error(`no service found for ${algorithm}`);
+    }
     return service;
   }
 
