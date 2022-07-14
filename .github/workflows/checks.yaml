@@ -54,6 +54,8 @@ jobs:
           targets: test
           all: 'true'
           parallel: 1
+        env:
+          NODE_OPTIONS: --experimental-vm-modules
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v2
