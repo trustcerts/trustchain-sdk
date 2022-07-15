@@ -175,10 +175,42 @@ describe('vc-bbs', () => {
     expect(await vcVerifierService.verifyCredential(vc)).toBe(true);
   }, 15000);
 
+  it('verify BBS revoked vc', async () => {
+    const vc = await createVcBbs();
+    const vcVerifierService = new BbsVerifiableCredentialVerifierService();
+
+    vcVerifierService.isRevoked = jest.fn().mockReturnValueOnce(true);
+
+    expect(await vcVerifierService.verifyCredential(vc)).toEqual(false);
+  }, 15000);
+
+  it('verify BBS invalid vc', async () => {
+    const vc = await createVcBbs();
+    vc.proof.proofValue = 'invalid proofValue';
+    const vcVerifierService = new BbsVerifiableCredentialVerifierService();
+
+    expect(await vcVerifierService.verifyCredential(vc)).toEqual(false);
+  }, 15000);
+
   it('verify BBS vp', async () => {
     const vp = await createVpBbs();
     logger.debug(vp);
     const vcVerifierService = new BbsVerifiableCredentialVerifierService();
     expect(await vcVerifierService.verifyPresentation(vp)).toBe(true);
+  }, 15000);
+
+  it('verify BBS vp with invalid vcs', async () => {
+    const vp = await createVpBbs();
+    const vcVerifierService = new BbsVerifiableCredentialVerifierService();
+    vcVerifierService.verifyCredential = jest.fn().mockReturnValueOnce(false);
+    expect(await vcVerifierService.verifyPresentation(vp)).toBe(false);
+  }, 15000);
+
+  it('verify BBS invalid vp', async () => {
+    const vp = await createVpBbs();
+    vp.proof.proofValue = 'invalid proofValue';
+    const vcVerifierService = new BbsVerifiableCredentialVerifierService();
+
+    expect(await vcVerifierService.verifyPresentation(vp)).toEqual(false);
   }, 15000);
 });
