@@ -2,7 +2,6 @@ import { importKey, sortKeys, verifySignature } from '@trustcerts/crypto';
 import {
   BaseAPI,
   DidIdTransaction,
-  DidStructure,
   DidTransaction,
   DocResponse,
 } from '@trustcerts/observer';
@@ -16,7 +15,7 @@ export abstract class VerifierService {
 
   protected async validateDoc(
     document: DocResponse,
-    config: DidManagerConfigValues<DidStructure>
+    config: DidManagerConfigValues<DidIdTransaction>
   ) {
     //TODO implement validation of a document with recursive approach
     // TODO validate if signatureinfo is better than signaturedto to store more information
@@ -55,25 +54,21 @@ export abstract class VerifierService {
   protected async validateTransaction(
     transaction: DidTransaction
   ): Promise<void> {
-    await this.getKey(transaction).then((key: JsonWebKey) => {
-      const value = JSON.stringify(
-        sortKeys({
-          value: transaction.values,
-          date: transaction.createdAt,
-        })
-      );
-      importKey(key, 'jwk', ['verify']).then((key) => {
-        verifySignature(
-          value,
-          transaction.signature.values[0].signature,
-          key
-        ).then((valid) => {
-          if (!valid) {
-            throw Error('signature is wrong');
-          }
-        });
-      });
-    });
+    const key = await this.getKey(transaction);
+    const content: SignatureContent = {
+      value: transaction.values,
+      date: transaction.createdAt,
+      type: transaction.type,
+    };
+    const importedKey = await importKey(key, 'jwk', ['verify']);
+    const valid = await verifySignature(
+      JSON.stringify(sortKeys(content)),
+      transaction.signature.values[0].signature,
+      importedKey
+    );
+    if (!valid) {
+      throw Error('signature is wrong');
+    }
   }
 
   private async getKey(transaction: DidIdTransaction): Promise<JsonWebKey> {
@@ -111,7 +106,7 @@ export abstract class VerifierService {
 
   abstract getDidDocument(
     id: string,
-    config: DidManagerConfigValues<DidStructure>
+    config: DidManagerConfigValues<DidTransaction>
   ): Promise<DocResponse>;
 
   abstract getDidTransactions(

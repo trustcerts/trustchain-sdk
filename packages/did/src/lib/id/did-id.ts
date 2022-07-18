@@ -5,6 +5,7 @@ import {
   DidIdStructure,
   IdDocResponse,
   DidIdDocument,
+  DidIdTransaction,
 } from '@trustcerts/observer';
 import { Did } from '../did';
 import { DidRoles } from '../did-roles.dto';
@@ -330,54 +331,55 @@ export class DidId extends Did {
     this.resetChanges();
   }
 
-  parseTransactions(transactions: DidIdStructure[]): void {
+  parseTransactions(transactions: DidIdTransaction[]): void {
     for (const transaction of transactions) {
       this.version++;
       // validate signature of transaction
       // parse it into the existing document
       this.parseTransactionControllers(transaction);
 
-      if (transaction.service?.remove) {
-        transaction.service.remove.forEach((id) =>
+      if (transaction.values.service?.remove) {
+        transaction.values.service.remove.forEach((id) =>
           this.service.current.delete(id)
         );
       }
-      if (transaction.service?.add) {
-        transaction.service.add.forEach((service) =>
+      if (transaction.values.service?.add) {
+        transaction.values.service.add.forEach((service) =>
           this.service.current.set(service.id, service)
         );
       }
 
-      if (transaction.verificationMethod?.remove) {
-        transaction.verificationMethod.remove.forEach((id) =>
+      if (transaction.values.verificationMethod?.remove) {
+        transaction.values.verificationMethod.remove.forEach((id) =>
           this.verificationMethod.current.delete(id)
         );
       }
-      if (transaction.verificationMethod?.add) {
-        transaction.verificationMethod.add.forEach((verificationMethod) =>
-          this.verificationMethod.current.set(
-            verificationMethod.id,
-            verificationMethod
-          )
+      if (transaction.values.verificationMethod?.add) {
+        transaction.values.verificationMethod.add.forEach(
+          (verificationMethod) =>
+            this.verificationMethod.current.set(
+              verificationMethod.id,
+              verificationMethod
+            )
         );
       }
 
       Object.values(VerificationRelationshipType).forEach((vrType) => {
-        transaction[vrType]?.remove?.forEach((id) => {
+        transaction.values[vrType]?.remove?.forEach((id) => {
           this.verificationRelationships.get(vrType)?.current.delete(id);
         });
-        transaction[vrType]?.add?.forEach((id) => {
+        transaction.values[vrType]?.add?.forEach((id) => {
           this.verificationRelationships.get(vrType)?.current.set(id, id);
         });
       });
 
-      if (transaction.role?.remove) {
-        transaction.role.remove.forEach((role) =>
+      if (transaction.values.role?.remove) {
+        transaction.values.role.remove.forEach((role) =>
           this.role.current.delete(role)
         );
       }
-      if (transaction.role?.add) {
-        transaction.role.add.forEach((role) =>
+      if (transaction.values.role?.add) {
+        transaction.values.role.add.forEach((role) =>
           // TODO fix this unknown transformation
           this.role.current.set(role, role as unknown as DidRoles)
         );

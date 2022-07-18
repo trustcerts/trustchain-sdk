@@ -1,5 +1,5 @@
 import { DidResolver, InitDidManagerConfigValues } from '@trustcerts/did';
-import { DidSchemaStructure } from '@trustcerts/observer';
+import { DidSchemaTransaction } from '@trustcerts/observer';
 import { DidSchema } from './did-schema';
 import { SchemaVerifierService } from './schema-verifier-service';
 
@@ -11,10 +11,10 @@ export class DidSchemaResolver extends DidResolver<SchemaVerifierService> {
 
   public async load(
     id: string,
-    values?: InitDidManagerConfigValues<DidSchemaStructure>
+    values?: InitDidManagerConfigValues<DidSchemaTransaction>
   ): Promise<DidSchema> {
     const didID = id.split('#')[0];
-    const config = this.setConfig<DidSchemaStructure>(values);
+    const config = this.setConfig<DidSchemaTransaction>(values);
     const did = new DidSchema(didID);
     await this.loadDid(did, config);
     return did;

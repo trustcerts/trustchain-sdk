@@ -10,6 +10,7 @@ import {
   Configuration,
   DidHashDocument,
   DidHashStructure,
+  DidHashTransaction,
   DidSchemaTransaction,
   HashDocResponse,
   HashObserverApi,
@@ -31,7 +32,7 @@ export class DidHashVerifierService extends VerifierService {
 
   public async verify(
     checksum: string,
-    config: DidManagerConfigValues<DidHashStructure>
+    config: DidManagerConfigValues<DidHashTransaction>
   ): Promise<DidHashDocument> {
     return (await this.getDidDocument(checksum, config)).document;
     // TODO check if the validation is done in the getDidDocument function
@@ -55,7 +56,7 @@ export class DidHashVerifierService extends VerifierService {
 
   async getDidDocument(
     id: string,
-    config: DidManagerConfigValues<DidHashStructure>
+    config: DidManagerConfigValues<DidHashTransaction>
   ): Promise<HashDocResponse> {
     this.setEndpoints(id);
     for (const api of this.apis) {
