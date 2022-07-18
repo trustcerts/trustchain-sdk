@@ -61,9 +61,7 @@ export class VerifiableCredentialIssuerService {
 
       vcPayload.credentialStatus =
         await revocationService.getNewCredentialStatus();
-      vcPayload['@context']?.push(
-        'https://w3id.org/vc-revocation-list-2020/v1'
-      );
+      vcPayload['@context'].push('https://w3id.org/vc-revocation-list-2020/v1');
     }
 
     /* Set values according to https://w3c.github.io/vc-data-model/#jwt-encoding
@@ -85,7 +83,6 @@ export class VerifiableCredentialIssuerService {
 
         */
 
-    if (!cryptoService.keyPair.privateKey.algorithm) throw new Error();
     const jwt = new SignJWT({ vc: vcPayload, nonce: nonce })
       // map to https://datatracker.ietf.org/doc/html/rfc7518#section-3.1
       .setProtectedHeader({
@@ -153,7 +150,7 @@ export class VerifiableCredentialIssuerService {
             https://w3c-ccg.github.io/security-vocab/#challenge
             https://github.com/hyperledger/aries-rfcs/blob/master/features/0510-dif-pres-exch-attach/README.md#the-options-object
         */
-    if (!cryptoService.keyPair.privateKey.algorithm) throw new Error();
+
     const jwt = new SignJWT({ vp: vpPayload, nonce: nonce })
       // map to https://datatracker.ietf.org/doc/html/rfc7518#section-3.1
       .setProtectedHeader({

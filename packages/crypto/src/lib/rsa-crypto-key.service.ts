@@ -5,21 +5,29 @@ import { hashAlgorithm, subtle } from './values';
 import { exportKey } from './key';
 
 export class RSACryptoKeyService extends CryptoKeyService {
-  keyType = 'RSA';
-
-  async generateKeyPair(id: string): Promise<DecryptedKeyPair> {
-    const params: RsaHashedKeyGenParams = {
+  constructor(
+    public algorithm: RsaHashedKeyGenParams = {
       name: 'RSASSA-PKCS1-v1_5',
       modulusLength: 2048,
       publicExponent: new Uint8Array([1, 0, 1]),
       hash: hashAlgorithm,
-    };
-    const keys = await subtle.generateKey(params, true, ['sign', 'verify']);
+    }
+  ) {
+    super();
+  }
+
+  async generateKeyPair(
+    id: string
+  ): Promise<DecryptedKeyPair<RsaHashedKeyGenParams>> {
+    const keys = await subtle.generateKey(this.algorithm, true, [
+      'sign',
+      'verify',
+    ]);
     return {
       privateKey: await exportKey(keys.privateKey),
       publicKey: await exportKey(keys.publicKey),
       identifier: `${id}#${await this.getFingerPrint(keys.publicKey)}`,
-      keyType: this.keyType,
+      algorithm: this.algorithm,
     };
   }
 

@@ -1,4 +1,4 @@
-import { DidStructure } from '@trustcerts/observer';
+import { DidStructure, DidTransaction } from '@trustcerts/observer';
 import { DidCachedService } from './cache/did-cached-service';
 import { Did } from './did';
 import { DidManagerConfigValues } from './DidManagerConfigValues';
@@ -11,7 +11,7 @@ export abstract class DidResolver<T extends VerifierService> {
   protected async loadDid(
     did: Did,
     // TODO any is not the best type
-    config: DidManagerConfigValues<DidStructure>
+    config: DidManagerConfigValues<DidTransaction>
   ): Promise<void> {
     if (config.transactions?.length > 0) {
       did.parseTransactions(config.transactions);
@@ -38,7 +38,7 @@ export abstract class DidResolver<T extends VerifierService> {
     DidCachedService.add(did, config.time);
   }
 
-  protected setConfig<T extends DidStructure>(
+  protected setConfig<T extends DidTransaction>(
     values?: InitDidManagerConfigValues<T>
   ): DidManagerConfigValues<T> {
     return {

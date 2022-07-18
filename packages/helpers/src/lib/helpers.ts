@@ -35,7 +35,7 @@ function base58Decode(string: string): Uint8Array {
 
 if (!isBrowser()) {
   const getDirName = dirname;
-  // TODO: writeFileSync is bad practive (synchronous): https://www.geeksforgeeks.org/node-js-fs-writefilesync-method/
+  // TODO: writeFileSync is bad practice (synchronous): https://www.geeksforgeeks.org/node-js-fs-writefilesync-method/
   write = (path, contents) => {
     mkdirSync(getDirName(path), { recursive: true });
     writeFileSync(path, contents);

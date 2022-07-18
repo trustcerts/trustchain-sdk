@@ -1,13 +1,17 @@
 import { ConfigService } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
-import { CryptoService, defaultCryptoKeyService } from '@trustcerts/crypto';
+import {
+  CryptoService,
+  RSACryptoKeyService,
+  ECCryptoKeyService,
+} from '@trustcerts/crypto';
 import {
   DidNetworks,
   Identifier,
   VerificationRelationshipType,
 } from '@trustcerts/did';
 import { logger } from '@trustcerts/logger';
-import { VerifiableCredentialIssuerService } from '@trustcerts/vc-jwt';
+import { JWT, VerifiableCredentialIssuerService } from '@trustcerts/vc-jwt';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
 
@@ -19,7 +23,13 @@ describe('vc', () => {
 
   let cryptoServiceRSA: CryptoService;
 
+  let cryptoServiceEC: CryptoService;
+
+  let cryptoServices: CryptoService[];
+
   let walletService: WalletService;
+
+  const vcIssuerService = new VerifiableCredentialIssuerService();
 
   beforeAll(async () => {
     const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
@@ -29,7 +39,13 @@ describe('vc', () => {
     config = new LocalConfigService(testValues.filePath);
     await config.init(testValues.configValues);
 
-    walletService = new WalletService(config);
+    const rsaCryptoKeyService = new RSACryptoKeyService();
+    const ecCryptoKeyService = new ECCryptoKeyService();
+
+    walletService = new WalletService(config, [
+      rsaCryptoKeyService,
+      ecCryptoKeyService,
+    ]);
     await walletService.init();
 
     cryptoServiceRSA = new CryptoService();
@@ -37,21 +53,33 @@ describe('vc', () => {
     const rsaKey = (
       await walletService.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        rsaCryptoKeyService.algorithm
       )
     )[0];
     if (rsaKey !== undefined) {
       await cryptoServiceRSA.init(rsaKey);
     }
+
+    cryptoServiceEC = new CryptoService();
+    const ecKey = (
+      await walletService.findOrCreate(
+        VerificationRelationshipType.assertionMethod,
+        ecCryptoKeyService.algorithm
+      )
+    )[0];
+    if (ecKey !== undefined) {
+      await cryptoServiceEC.init(ecKey);
+    }
+
+    cryptoServices = [cryptoServiceRSA, cryptoServiceEC];
   }, 10000);
 
   /**
    * Creates an example JWT-encoded verifiable credential for testing
    * @returns A JWT-encoded verifiable credential with example data
    */
-  async function createVc(): Promise<string> {
+  async function createVc(cryptoService: CryptoService): Promise<string> {
     if (!config.config.invite) throw Error();
-    const vcIssuerService = new VerifiableCredentialIssuerService();
 
     return await vcIssuerService.createVerifiableCredential(
       {
@@ -62,7 +90,7 @@ describe('vc', () => {
         issuer: config.config.invite.id,
         // nonce: 'randomVC',
       },
-      cryptoServiceRSA
+      cryptoService
     );
   }
 
@@ -70,10 +98,9 @@ describe('vc', () => {
    * Creates an example JWT-encoded verifiable presentation for testing
    * @returns A JWT-encoded verifiable presentation with example data
    */
-  async function createVp(): Promise<string> {
-    const vcIssuerService = new VerifiableCredentialIssuerService();
-    const vc1 = await createVc();
-    const vc2 = await createVc();
+  async function createVp(cryptoService: CryptoService): Promise<string> {
+    const vc1 = await createVc(cryptoService);
+    const vc2 = await createVc(cryptoService);
     return await vcIssuerService.createVerifiablePresentation(
       {
         '@context': [],
@@ -84,19 +111,86 @@ describe('vc', () => {
         holder: 'did:max:mustermann',
         nonce: 'randomVP',
       },
-      cryptoServiceRSA
+      cryptoService
     );
   }
 
   it('create vc', async () => {
-    const vc = await createVc();
-    logger.debug(vc);
-    expect(vc).toBeDefined();
+    for (const cryptoService of cryptoServices) {
+      const vc = await createVc(cryptoService);
+      logger.debug(vc);
+      expect(vc).toBeDefined();
+    }
+  }, 15000);
+
+  // it('create invalid vc', async () => {
+  //   if (!config.config.invite) throw Error();
+
+  //   jest
+  //     .spyOn(cryptoServiceRSA.keyPair.privateKey, 'algorithm', 'get')
+  //     .mockReturnValue(null);
+
+  //   return await vcIssuerService.createVerifiableCredential(
+  //     {
+  //       '@context': [],
+  //       type: ['TestCredential'],
+  //       credentialSubject: { id: 'did:max:mustermann' },
+  //       id: 'unique_id',
+  //       issuer: config.config.invite.id,
+  //       // nonce: 'randomVC',
+  //     },
+  //     cryptoServiceRSA
+  //   );
+  // }, 15000);
+
+  it('test set expiration date VC', async () => {
+    if (!config.config.invite) throw Error();
+
+    const expDate = 1657372884;
+    const vc = await vcIssuerService.createVerifiableCredential(
+      {
+        '@context': [],
+        type: ['TestCredential'],
+        credentialSubject: { id: 'did:max:mustermann' },
+        id: 'unique_id',
+        issuer: config.config.invite.id,
+        expirationDate: expDate,
+        // nonce: 'randomVC',
+      },
+      cryptoServiceRSA
+    );
+
+    const vcJWT = new JWT(vc);
+    expect(vcJWT.getPayload().exp).toEqual(expDate);
+  }, 15000);
+
+  it('test set expiration date VP', async () => {
+    if (!config.config.invite) throw Error();
+
+    const expDate = 1657372884;
+    const vp = await vcIssuerService.createVerifiablePresentation(
+      {
+        '@context': [],
+        type: ['TestPresentation'],
+        verifiableCredentials: [],
+        domain: 'domain',
+        challenge: 'challenge',
+        holder: 'did:max:mustermann',
+        nonce: 'randomVP',
+        expirationDate: expDate,
+      },
+      cryptoServiceRSA
+    );
+
+    const vpJWT = new JWT(vp);
+    expect(vpJWT.getPayload().exp).toEqual(expDate);
   }, 15000);
 
   it('create vp', async () => {
-    const vp = await createVp();
-    logger.debug(JSON.stringify(vp, null, 4));
-    expect(vp).toBeDefined();
+    for (const cryptoService of cryptoServices) {
+      const vp = await createVp(cryptoService);
+      logger.debug(JSON.stringify(vp, null, 4));
+      expect(vp).toBeDefined();
+    }
   }, 15000);
 });

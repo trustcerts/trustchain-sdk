@@ -3,6 +3,7 @@ import {
   Compression,
   DidTemplateDocument,
   DidTemplateStructure,
+  DidTemplateTransaction,
   TemplateDocResponse,
 } from '@trustcerts/observer';
 
@@ -14,7 +15,7 @@ export class DidTemplate extends Did {
 
   public schemaId!: string;
 
-  parseTransactions(transactions: DidTemplateStructure[]): void {
+  parseTransactions(transactions: DidTemplateTransaction[]): void {
     // this.values.
     for (const transaction of transactions) {
       this.version++;
@@ -22,9 +23,9 @@ export class DidTemplate extends Did {
       // parse it into the existing document
       this.parseTransactionControllers(transaction);
 
-      this.schemaId = transaction.schemaId ?? this.schemaId;
-      this.template = transaction.template ?? this.template;
-      this.compression = transaction.compression ?? this.compression;
+      this.schemaId = transaction.values.schemaId ?? this.schemaId;
+      this.template = transaction.values.template ?? this.template;
+      this.compression = transaction.values.compression ?? this.compression;
     }
   }
   parseDocument(docResponse: TemplateDocResponse): void {

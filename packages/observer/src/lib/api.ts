@@ -272,6 +272,12 @@ export interface DidHashTransaction {
      */
     'createdAt': string;
     /**
+     * Type of the transaction
+     * @type {string}
+     * @memberof DidHashTransaction
+     */
+    'type': string;
+    /**
      * Values of the transaction
      * @type {DidHashStructure}
      * @memberof DidHashTransaction
@@ -491,6 +497,12 @@ export interface DidIdTransaction {
      * @memberof DidIdTransaction
      */
     'createdAt': string;
+    /**
+     * Type of the transaction
+     * @type {string}
+     * @memberof DidIdTransaction
+     */
+    'type': string;
     /**
      * Values of the transaction
      * @type {DidIdStructure}
@@ -750,6 +762,12 @@ export interface DidSchemaTransaction {
      */
     'createdAt': string;
     /**
+     * Type of the transaction
+     * @type {string}
+     * @memberof DidSchemaTransaction
+     */
+    'type': string;
+    /**
      * Values of the transaction
      * @type {DidSchemaStructure}
      * @memberof DidSchemaTransaction
@@ -966,6 +984,12 @@ export interface DidTemplateTransaction {
      */
     'createdAt': string;
     /**
+     * Type of the transaction
+     * @type {string}
+     * @memberof DidTemplateTransaction
+     */
+    'type': string;
+    /**
      * Values of the transaction
      * @type {DidTemplateStructure}
      * @memberof DidTemplateTransaction
@@ -1008,6 +1032,12 @@ export interface DidTransaction {
      * @memberof DidTransaction
      */
     'createdAt': string;
+    /**
+     * Type of the transaction
+     * @type {string}
+     * @memberof DidTransaction
+     */
+    'type': string;
     /**
      * Values of the transaction
      * @type {DidStructure}
@@ -1690,7 +1720,7 @@ export const DidObserverApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1734,7 +1764,7 @@ export const DidObserverApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.408Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.247Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1778,7 +1808,7 @@ export const DidObserverApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1842,7 +1872,7 @@ export const DidObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1855,7 +1885,7 @@ export const DidObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.408Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.247Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1868,7 +1898,7 @@ export const DidObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1900,7 +1930,7 @@ export const DidObserverApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1912,7 +1942,7 @@ export const DidObserverApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.408Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.247Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1924,7 +1954,7 @@ export const DidObserverApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.409Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.249Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1957,7 +1987,7 @@ export class DidObserverApi extends BaseAPI {
      * 
      * @summary returns the did document to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.409Z
+     * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.249Z
      * @param {number} [versionId] return the did document with this version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1971,7 +2001,7 @@ export class DidObserverApi extends BaseAPI {
      * 
      * @summary returns the transaction to assemble a did document.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.408Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.247Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1985,7 +2015,7 @@ export class DidObserverApi extends BaseAPI {
      * 
      * @summary returns the did document metadata to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.409Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.249Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2007,7 +2037,7 @@ export const HashObserverApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2051,7 +2081,7 @@ export const HashObserverApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.426Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.272Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2095,7 +2125,7 @@ export const HashObserverApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2149,7 +2179,7 @@ export const HashObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2162,7 +2192,7 @@ export const HashObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.426Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.272Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2175,7 +2205,7 @@ export const HashObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2198,7 +2228,7 @@ export const HashObserverApiFactory = function (configuration?: Configuration, b
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2210,7 +2240,7 @@ export const HashObserverApiFactory = function (configuration?: Configuration, b
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.426Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.272Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2222,7 +2252,7 @@ export const HashObserverApiFactory = function (configuration?: Configuration, b
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.427Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.273Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2244,7 +2274,7 @@ export class HashObserverApi extends BaseAPI {
      * 
      * @summary returns the did document to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.427Z
+     * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.273Z
      * @param {number} [versionId] return the did document with this version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2258,7 +2288,7 @@ export class HashObserverApi extends BaseAPI {
      * 
      * @summary returns the transaction to assemble a did document.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.426Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.272Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2272,7 +2302,7 @@ export class HashObserverApi extends BaseAPI {
      * 
      * @summary returns the did document metadata to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.427Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.273Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2593,7 +2623,7 @@ export const SchemaObserverApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2637,7 +2667,7 @@ export const SchemaObserverApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2681,7 +2711,7 @@ export const SchemaObserverApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2735,7 +2765,7 @@ export const SchemaObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2748,7 +2778,7 @@ export const SchemaObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2761,7 +2791,7 @@ export const SchemaObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2784,7 +2814,7 @@ export const SchemaObserverApiFactory = function (configuration?: Configuration,
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2796,7 +2826,7 @@ export const SchemaObserverApiFactory = function (configuration?: Configuration,
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2808,7 +2838,7 @@ export const SchemaObserverApiFactory = function (configuration?: Configuration,
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.487Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.358Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2830,7 +2860,7 @@ export class SchemaObserverApi extends BaseAPI {
      * 
      * @summary returns the did document to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.487Z
+     * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.358Z
      * @param {number} [versionId] return the did document with this version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2844,7 +2874,7 @@ export class SchemaObserverApi extends BaseAPI {
      * 
      * @summary returns the transaction to assemble a did document.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.487Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.358Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2858,7 +2888,7 @@ export class SchemaObserverApi extends BaseAPI {
      * 
      * @summary returns the did document metadata to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.487Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.358Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2880,7 +2910,7 @@ export const TemplateObserverApiAxiosParamCreator = function (configuration?: Co
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2924,7 +2954,7 @@ export const TemplateObserverApiAxiosParamCreator = function (configuration?: Co
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2968,7 +2998,7 @@ export const TemplateObserverApiAxiosParamCreator = function (configuration?: Co
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3022,7 +3052,7 @@ export const TemplateObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3035,7 +3065,7 @@ export const TemplateObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3048,7 +3078,7 @@ export const TemplateObserverApiFp = function(configuration?: Configuration) {
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3071,7 +3101,7 @@ export const TemplateObserverApiFactory = function (configuration?: Configuratio
          * 
          * @summary returns the did document to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] return the did document with this version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3083,7 +3113,7 @@ export const TemplateObserverApiFactory = function (configuration?: Configuratio
          * 
          * @summary returns the transaction to assemble a did document.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3095,7 +3125,7 @@ export const TemplateObserverApiFactory = function (configuration?: Configuratio
          * 
          * @summary returns the did document metadata to a did.
          * @param {string} id identifier of the did.
-         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.503Z
+         * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.374Z
          * @param {number} [versionId] only request transactions that belong to reach the version
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3117,7 +3147,7 @@ export class TemplateObserverApi extends BaseAPI {
      * 
      * @summary returns the did document to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] return the did document that was present to 2022-06-14T07:39:11.503Z
+     * @param {string} [versionTime] return the did document that was present to 2022-07-18T14:16:17.374Z
      * @param {number} [versionId] return the did document with this version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3131,7 +3161,7 @@ export class TemplateObserverApi extends BaseAPI {
      * 
      * @summary returns the transaction to assemble a did document.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-06-14T07:39:11.503Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp like 2022-07-18T14:16:17.374Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3145,7 +3175,7 @@ export class TemplateObserverApi extends BaseAPI {
      * 
      * @summary returns the did document metadata to a did.
      * @param {string} id identifier of the did.
-     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-06-14T07:39:11.503Z
+     * @param {string} [versionTime] only request transactions that are less than the given timestamp 2022-07-18T14:16:17.374Z
      * @param {number} [versionId] only request transactions that belong to reach the version
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

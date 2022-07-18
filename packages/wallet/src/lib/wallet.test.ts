@@ -1,4 +1,4 @@
-import { ConfigService } from '@trustcerts/config';
+import { ConfigService, Invite } from '@trustcerts/config';
 import { LocalConfigService } from '@trustcerts/config-local';
 import {
   defaultCryptoKeyService,
@@ -31,7 +31,7 @@ describe('wallet', () => {
     await config.init(testValues.configValues);
   });
 
-  it('add key', async () => {
+  it('add and remove key', async () => {
     const cryptoKeyServices = [
       new RSACryptoKeyService(),
       new ECCryptoKeyService(),
@@ -44,7 +44,7 @@ describe('wallet', () => {
       // Add a key for each verification relationship
       const key = await walletService.addKey(
         Object.values(VerificationRelationshipType),
-        cryptoKeyService.keyType
+        cryptoKeyService.algorithm
       );
 
       // Check if the key is found by its identifier
@@ -52,9 +52,9 @@ describe('wallet', () => {
 
       // Check if the key is found by vrType and signatureType
       Object.values(VerificationRelationshipType).forEach((vrType) => {
-        expect(walletService.find(vrType, cryptoKeyService.keyType)).toContain(
-          key
-        );
+        expect(
+          walletService.find(vrType, cryptoKeyService.algorithm)
+        ).toContain(key);
       });
 
       // Remove the key
@@ -81,5 +81,11 @@ describe('wallet', () => {
     await walletService.tidyUp();
 
     expect(walletService.findKeyByID(invalidKey.identifier)).toBeUndefined();
+  }, 15000);
+
+  it('init wallet with invalid config invite', async () => {
+    config.config.invite = null as any as Invite;
+    const walletService = new WalletService(config, []);
+    await expect(walletService.init()).rejects.toThrowError('no id found');
   }, 15000);
 });

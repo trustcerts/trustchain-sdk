@@ -82,7 +82,7 @@ export class BbsVerifiableCredentialIssuerService {
       await revocationService.init();
 
       vc.credentialStatus = await revocationService.getNewCredentialStatus();
-      vc['@context']?.push('https://w3id.org/vc-revocation-list-2020/v1');
+      vc['@context']!.push('https://w3id.org/vc-revocation-list-2020/v1');
     }
 
     // TODO: Warum sind diese 3 Zeilen auskommentiert? Warum hat das Interface kein expirationDate?

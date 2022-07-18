@@ -35,7 +35,7 @@ export class DidIdVerifierService extends VerifierService {
    */
   async getDidDocument(
     id: string,
-    config: DidManagerConfigValues<DidIdStructure>
+    config: DidManagerConfigValues<DidIdTransaction>
   ): Promise<IdDocResponse> {
     this.setEndpoints(id);
     for (const api of this.apis) {

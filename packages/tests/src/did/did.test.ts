@@ -35,7 +35,7 @@ describe('test did', () => {
     const key = (
       await wallet.findOrCreate(
         VerificationRelationshipType.assertionMethod,
-        defaultCryptoKeyService.keyType
+        defaultCryptoKeyService.algorithm
       )
     )[0];
     await cryptoService.init(key);
@@ -78,8 +78,10 @@ describe('test did', () => {
         resolve(true);
       }, 2000)
     );
-    const did1 = await resolver.load(did.id);
+    const did1 = await resolver.load(did.id, { doc: false });
     expect(did.getDocument()).toEqual(did1.getDocument());
+    const did2 = await resolver.load(did.id, { doc: true });
+    expect(did.getDocument()).toEqual(did2.getDocument());
   }, 7000);
 
   it('read non existing did', (done) => {

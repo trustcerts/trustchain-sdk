@@ -139,21 +139,30 @@ export class RevocationService {
     );
   }
 
+  private isRevocationListFull(): boolean {
+    return (
+      this.revocationListConfig.nextIndex >= this.revocationListConfig.length
+    );
+  }
+
+  private getNextFreeIndex(): number {
+    if (this.isRevocationListFull()) {
+      // TODO: handle this case
+      throw Error('The revocation list is full!');
+    }
+    const nextFreeIndex = this.revocationListConfig.nextIndex;
+    this.revocationListConfig.nextIndex += 1;
+    this.saveConfig();
+    return nextFreeIndex;
+  }
+
   /**
    * Creates a new unrevoked credential status with the next free index on the revocation list
    * @returns The credential status
    */
   public async getNewCredentialStatus(): Promise<ICredentialStatus> {
     await this.reloadConfig();
-    const index = this.revocationListConfig.nextIndex;
-    this.revocationListConfig.nextIndex += 1;
-    if (
-      this.revocationListConfig.nextIndex >= this.revocationListConfig.length
-    ) {
-      // TODO: handle this case
-      throw Error('revocation list is full!!!');
-    }
-    this.saveConfig();
+    const index = this.getNextFreeIndex();
     return {
       id: `${this.revocationListConfig.id}#${index}`,
       type: 'RevocationList2020Status',

@@ -1,4 +1,4 @@
-export class DecryptedKeyPair {
+export class DecryptedKeyPair<T extends Algorithm = Algorithm> {
   privateKey!: JsonWebKey;
 
   publicKey!: JsonWebKey;
@@ -8,6 +8,5 @@ export class DecryptedKeyPair {
    */
   identifier!: string;
 
-  // TODO check if this param is required since the keytype is defined in the publickey
-  keyType!: string;
+  algorithm!: T;
 }
