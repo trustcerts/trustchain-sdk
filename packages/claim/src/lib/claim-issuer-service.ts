@@ -2,6 +2,7 @@ import {
   DidHashRegister,
   DidHashResolver,
   SignatureIssuerService,
+  DidHash,
 } from '@trustcerts/did-hash';
 import { DidTemplate } from '@trustcerts/did-template';
 import { DidSchemaResolver } from '@trustcerts/did-schema';
@@ -21,6 +22,12 @@ export class ClaimIssuerService {
   public ajv = new Ajv();
   /**
    * create a claim.
+   *
+   * @param template
+   * @param values
+   * @param host
+   * @param signatureIssuer
+   * @param controllers
    */
   async create(
     template: DidTemplate,
@@ -45,6 +52,7 @@ export class ClaimIssuerService {
 
   /**
    * revokes a claim.
+   *
    * @param claim
    * @param signatureIssuer
    */

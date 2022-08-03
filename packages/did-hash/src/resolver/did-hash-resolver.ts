@@ -8,7 +8,7 @@ import {
   Identifier,
   InitDidManagerConfigValues,
 } from '@trustcerts/did';
-import { DidHashStructure, DidHashTransaction } from '@trustcerts/observer';
+import { DidHashTransaction } from '@trustcerts/observer';
 import { DidHash } from './did-hash';
 import { DidHashVerifierService } from './hash-verifier-service';
 

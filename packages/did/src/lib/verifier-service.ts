@@ -13,6 +13,11 @@ export abstract class VerifierService {
 
   protected timeout = 2000;
 
+  /**
+   *
+   * @param document
+   * @param config
+   */
   protected async validateDoc(
     document: DocResponse,
     config: DidManagerConfigValues<DidIdTransaction>
@@ -48,6 +53,7 @@ export abstract class VerifierService {
 
   /**
    * Validates the signature of a given transaction.
+   *
    * @param transaction
    * @private
    */
