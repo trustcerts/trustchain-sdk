@@ -1,4 +1,3 @@
-import { encode, decode } from 'base58-universal';
 import {
   existsSync,
   mkdirSync,
@@ -7,6 +6,7 @@ import {
   writeFileSync,
 } from 'fs';
 import { dirname } from 'path';
+import { encode, decode } from './basen';
 
 let write: (path: string, value: string) => void;
 let exists: (path: string) => boolean;
@@ -22,15 +22,18 @@ function isBrowser(): boolean {
   );
 }
 
+// base58 characters (Bitcoin alphabet)
+const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
 /**
  * Encodes an input in a string via base58
  */
-function base58Encode(buffer: Buffer | number[] | Uint8Array): string {
-  return encode(buffer);
+function base58Encode(buffer: Uint8Array, maxline?: number): string {
+  return encode(buffer, alphabet, maxline);
 }
 
 function base58Decode(string: string): Uint8Array {
-  return decode(string);
+  return decode(string, alphabet);
 }
 
 if (!isBrowser()) {

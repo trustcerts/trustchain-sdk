@@ -1,5 +1,5 @@
 {
-  "name": "trustcerts/did-schema",
+  "name": "@trustcerts/did-schema",
   "version": "0.0.1",
   "type": "commonjs"
 }

@@ -13,7 +13,8 @@
         "tsConfig": "packages/wallet/tsconfig.lib.json",
         "assets": [],
         "project": "packages/wallet/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

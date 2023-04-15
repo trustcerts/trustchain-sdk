@@ -1,5 +1,5 @@
 {
-  "name": "trustcerts/vc-jwt",
+  "name": "@trustcerts/vc-jwt",
   "version": "0.0.1",
   "type": "commonjs"
 }

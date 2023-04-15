@@ -1,5 +1,5 @@
 {
-  "name": "trustcerts/did-hash",
+  "name": "@trustcerts/did-hash",
   "version": "0.0.1",
   "type": "commonjs"
 }

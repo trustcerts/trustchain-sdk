@@ -1,12 +1,11 @@
 import { read, write } from '@trustcerts/helpers';
-import { IStatusListService } from '@trustcerts/vc';
 import { DidStatusList } from '../resolver/did-status-list';
 import { DidStatusListResolver } from '../resolver/did-status-list-resolver';
 import { DidStatusListRegister } from './did-status-list-register';
 import { ICredentialStatus, IStatusListConfig } from './revocation.interface';
 import { StatusListIssuerService } from './status-list-issuer-service';
 
-export class StatusListService implements IStatusListService {
+export class StatusListService {
   private statusListConfig!: IStatusListConfig;
 
   static create(did: DidStatusList, path: string) {

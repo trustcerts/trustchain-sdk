@@ -13,7 +13,8 @@
         "tsConfig": "packages/config-local/tsconfig.lib.json",
         "assets": [],
         "project": "packages/config-local/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

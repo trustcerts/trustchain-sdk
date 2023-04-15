@@ -4,6 +4,12 @@
   "sourceRoot": "packages/observer/src",
   "projectType": "library",
   "targets": {
+    "api": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @openapitools/openapi-generator-cli generate -g typescript-axios -i https://api.observer1.dev.trustcerts.de/api-json -o src/lib --api-name-suffix=ObserverApi --additional-properties=supportsES6=true,enumPropertyNaming=original,enumNameSuffix="
+      }
+    },
     "build": {
       "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
@@ -13,7 +19,8 @@
         "tsConfig": "packages/observer/tsconfig.lib.json",
         "assets": [],
         "project": "packages/observer/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

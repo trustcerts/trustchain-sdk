@@ -1,5 +1,8 @@
 {
-  "name": "trustcerts/did-status-list",
+  "name": "@trustcerts/did-status-list",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/pako": "^2.0.0"
+  }
 }

@@ -13,7 +13,8 @@
         "tsConfig": "packages/did-status-list/tsconfig.lib.json",
         "assets": [],
         "project": "packages/did-status-list/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

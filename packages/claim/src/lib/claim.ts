@@ -1,6 +1,6 @@
 import { DidHash } from '@trustcerts/did-hash';
 import { DidTemplate } from '@trustcerts/did-template';
-import { render } from 'mustache';
+import * as mustache from 'mustache';
 import { PDFButton, PDFDocument, PDFFont, PDFTextField } from 'pdf-lib';
 import { toDataURL } from 'qrcode';
 import { ClaimValues } from './claim-values';
@@ -100,7 +100,7 @@ export class Claim {
    */
   public async getHtml(): Promise<string> {
     const qrCode = await this.getQRCode(this.url);
-    return render(this.template.template, {
+    return mustache.render(this.template.template, {
       ...this.values,
       qrCode,
     });

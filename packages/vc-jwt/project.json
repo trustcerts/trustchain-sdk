@@ -13,7 +13,8 @@
         "tsConfig": "packages/vc-jwt/tsconfig.lib.json",
         "assets": [],
         "project": "packages/vc-jwt/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

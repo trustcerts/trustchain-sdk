@@ -13,7 +13,8 @@
         "tsConfig": "packages/claim/tsconfig.lib.json",
         "assets": [],
         "project": "packages/claim/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
       }
     },
     "publish": {

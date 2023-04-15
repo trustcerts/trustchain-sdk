@@ -1,5 +1,9 @@
 {
-  "name": "trustcerts/claim",
+  "name": "@trustcerts/claim",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/mustache": "^4.2.2",
+    "@types/qrcode": "^1.5.0"
+  }
 }
