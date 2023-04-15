@@ -14,7 +14,27 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@trustcerts/helpers": ["packages/helpers/src/index.ts"],
+      "trustcerts/claim": ["packages/claim/src/index.ts"],
+      "trustcerts/config": ["packages/config/src/index.ts"],
+      "trustcerts/config-local": ["packages/config-local/src/index.ts"],
+      "trustcerts/crypto": ["packages/crypto/src/index.ts"],
+      "trustcerts/did": ["packages/did/src/index.ts"],
+      "trustcerts/did-hash": ["packages/did-hash/src/index.ts"],
+      "trustcerts/did-schema": ["packages/did-schema/src/index.ts"],
+      "trustcerts/did-status-list": ["packages/did-status-list/src/index.ts"],
+      "trustcerts/did-template": ["packages/did-template/src/index.ts"],
+      "trustcerts/did-visual-representation": [
+        "packages/did-visual-representation/src/index.ts"
+      ],
+      "trustcerts/gateway": ["packages/gateway/src/index.ts"],
+      "trustcerts/logger": ["packages/logger/src/index.ts"],
+      "trustcerts/observer": ["packages/observer/src/index.ts"],
+      "trustcerts/vc": ["packages/vc/src/index.ts"],
+      "trustcerts/vc-jwt": ["packages/vc-jwt/src/index.ts"],
+      "trustcerts/wallet": ["packages/wallet/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
