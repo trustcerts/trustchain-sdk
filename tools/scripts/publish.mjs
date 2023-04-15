@@ -13,7 +13,6 @@ import { readFileSync, writeFileSync } from 'fs';
 import chalk from 'chalk';
 import axios from 'axios';
 
-return;
 function invariant(condition, message) {
   if (!condition) {
     console.error(chalk.bold.red(message));

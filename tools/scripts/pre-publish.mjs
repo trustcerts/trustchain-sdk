@@ -1,14 +1,7 @@
 /**
- * This is a minimal script to publish your package to "npm".
- * This is meant to be used as-is or customize as you see fit.
- *
- * This script is executed on "dist/path/to/library" as "cwd" by default.
- *
- * You might need to authenticate with NPM before running this script.
+ * This script will set the next version in the package.json file so when the building step is happending all proejcts will use the latest version of the dependancy.
  */
-
 import pkg from '@nrwl/devkit';
-import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import chalk from 'chalk';
 import axios from 'axios';
