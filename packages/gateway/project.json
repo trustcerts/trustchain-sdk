@@ -20,7 +20,8 @@
         "assets": [],
         "project": "packages/gateway/package.json",
         "compiler": "swc",
-        "format": ["cjs", "esm"]
+        "format": ["cjs", "esm"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {

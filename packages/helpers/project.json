@@ -14,7 +14,14 @@
         "assets": [],
         "project": "packages/helpers/package.json",
         "compiler": "swc",
-        "format": ["cjs", "esm"]
+        "format": ["cjs", "esm"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "pre-publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/pre-publish.mjs helpers {args.ver} {args.tag}"
       }
     },
     "publish": {
@@ -22,7 +29,18 @@
       "options": {
         "command": "node tools/scripts/publish.mjs helpers {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        {
+          "projects": "self",
+          "params": "forward",
+          "target": "pre-publish"
+        },
+        {
+          "projects": "self",
+          "params": "ignore",
+          "target": "build"
+        }
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

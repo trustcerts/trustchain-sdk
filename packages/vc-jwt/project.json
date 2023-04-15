@@ -14,7 +14,8 @@
         "assets": [],
         "project": "packages/vc-jwt/package.json",
         "compiler": "swc",
-        "format": ["cjs", "esm"]
+        "format": ["cjs", "esm"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {

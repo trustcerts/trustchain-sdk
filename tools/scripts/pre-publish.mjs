@@ -13,7 +13,6 @@ import { readFileSync, writeFileSync } from 'fs';
 import chalk from 'chalk';
 import axios from 'axios';
 
-return;
 function invariant(condition, message) {
   if (!condition) {
     console.error(chalk.bold.red(message));
@@ -53,14 +52,11 @@ invariant(
   `Could not find "build.options.outputPath" of project "${name}". Is project.json configured correctly?`
 );
 
-// const projectPackageJson = project.data?.targets?.build?.options?.project;
-// const json = JSON.parse(readFileSync(`package.json`).toString());
-
-process.chdir(outputPath);
+const projectPackageJson = project.data?.targets?.build?.options?.project;
 
 // Updating the version in "package.json" before publishing
 try {
-  const json = JSON.parse(readFileSync(`package.json`).toString());
+  const json = JSON.parse(readFileSync(projectPackageJson).toString());  
   if(["major", "minor", "patch"].includes(update)) {
     // get the latest version from npm. In this case we do not need to persist it locally and make another push to changed code or manage it via tags in git.
     const version = (await axios.get(`https://registry.npmjs.org/${json.name}/latest`)).data.version;
@@ -82,13 +78,10 @@ try {
     json.version = elements.join('.');
   } else {
     json.version = update;
-  }    
-  writeFileSync(`package.json`, JSON.stringify(json, null, 2));
+  }  
+  writeFileSync(projectPackageJson, JSON.stringify(json, null, 2));
 } catch (e) {
   console.error(
     chalk.bold.red(`Error reading package.json file from library build output.`)
   );
 }
-
-// Execute "npm publish" to publish
-execSync(`npm publish --access public --tag ${tag}`);
