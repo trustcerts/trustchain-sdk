@@ -13,7 +13,7 @@
         "tsConfig": "packages/claim/tsconfig.lib.json",
         "assets": [],
         "project": "packages/claim/package.json",
-        "compiler": "swc",
+        "compiler": "tsc",
         "format": ["cjs", "esm"],
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
@@ -41,7 +41,7 @@
           "target": "build"
         }
       ]
-    },    
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

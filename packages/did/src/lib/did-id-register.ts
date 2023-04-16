@@ -11,8 +11,8 @@ import { DidIdIssuerService } from './did-issuer-service';
 import { DidId } from './id/did-id';
 import { DidIdResolver } from './id/did-id-resolver';
 import { Identifier } from './identity';
-import { promisify } from 'util';
 import { logger } from '@trustcerts/logger';
+import { wait } from '@trustcerts/helpers';
 
 export class DidIdRegister {
   /**
@@ -59,7 +59,7 @@ export class DidIdRegister {
       });
     logger.debug('first key registered, wait');
     // wait a bit so the observers have time to sync. Otherwhise only the gateway has the new transaction already passed
-    await promisify(setTimeout)(1500);
+    await wait(1500);
     logger.debug('waited');
     // load own did document.
     const resolver = new DidIdResolver();

@@ -13,7 +13,7 @@
         "tsConfig": "packages/did-hash/tsconfig.lib.json",
         "assets": [],
         "project": "packages/did-hash/package.json",
-        "compiler": "swc",
+        "compiler": "tsc",
         "format": ["cjs", "esm"],
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }

@@ -4,8 +4,8 @@ import {
   AxiosError,
   InviteRequest,
 } from '@trustcerts/gateway';
-import { promisify } from 'util';
 import { Invite } from '@trustcerts/config';
+import { wait } from '@trustcerts/helpers';
 
 export class DidCreator {
   /**
@@ -51,7 +51,7 @@ export class DidCreator {
         }
       });
     // wait a bit so the observers have time to sync. Otherwhise only the gateway has the new transaction already passed
-    await promisify(setTimeout)(500);
+    await wait(500);
 
     return {
       id: id,

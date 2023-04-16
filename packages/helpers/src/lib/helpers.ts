@@ -57,4 +57,24 @@ if (!isBrowser()) {
   remove = window.localStorage.removeItem;
 }
 
-export { write, exists, read, remove, isBrowser, base58Encode, base58Decode };
+/**
+ * Waits a specific amount of time
+ * @param amount
+ * @returns
+ */
+function wait(amount: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), amount);
+  });
+}
+
+export {
+  write,
+  exists,
+  read,
+  remove,
+  isBrowser,
+  base58Encode,
+  base58Decode,
+  wait,
+};

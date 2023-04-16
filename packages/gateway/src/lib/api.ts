@@ -13,13 +13,15 @@
  */
 
 
-import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { Configuration } from './configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import type { RequestArgs } from './base';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
 /**
  * 
@@ -40,6 +42,8 @@ export interface Compression {
      */
     'value'?: string;
 }
+
+
 /**
  * 
  * @export
@@ -338,6 +342,8 @@ export interface DidIdTransactionBody {
      */
     'value': DidIdTransactionBodyValue;
 }
+
+
 /**
  * elements of the did document
  * @export
@@ -461,6 +467,8 @@ export interface DidPublicKey {
      */
     'type': DidPublicKeyType;
 }
+
+
 /**
  * encoded key value
  * @export
@@ -681,6 +689,8 @@ export interface DidStatusListStructure {
      */
     'statusPurpose'?: StatusPurpose;
 }
+
+
 /**
  * 
  * @export
@@ -893,6 +903,8 @@ export interface HashTransactionBody {
      */
     'value': HashTransactionBodyValue;
 }
+
+
 /**
  * elements of the did document
  * @export
@@ -1091,6 +1103,8 @@ export interface Presentation {
      */
     'link': string;
 }
+
+
 /**
  * 
  * @export
@@ -1315,6 +1329,8 @@ export interface SchemaTransactionBody {
      */
     'value': DidSchemaStructure;
 }
+
+
 /**
  * 
  * @export
@@ -1403,6 +1419,8 @@ export interface SignatureInfo {
      */
     'values': Array<SignatureDto>;
 }
+
+
 /**
  * 
  * @export
@@ -1498,6 +1516,8 @@ export interface StatusListTransactionBody {
      */
     'value': DidStatusListStructure;
 }
+
+
 /**
  * 
  * @export
@@ -1624,6 +1644,8 @@ export interface TemplateTransactionBody {
      */
     'value': DidTemplateStructure;
 }
+
+
 /**
  * 
  * @export
@@ -1805,6 +1827,8 @@ export interface VisualRepresentationTransactionBody {
      */
     'type': TransactionType;
 }
+
+
 /**
  * unique identifier of a visualrepresentation
  * @export
