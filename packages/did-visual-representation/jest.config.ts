@@ -16,6 +16,7 @@ if (swcJestConfig.swcrc === undefined) {
 export default {
   displayName: 'did-visual-representation',
   preset: '../../jest.preset.js',
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig],
   },

@@ -1,0 +1,68 @@
+{
+    "invite": {
+        "id": "did:trust:tc:dev:id:XLzBJd69tqEgq7oqqdEsHW",
+        "secret": "client",
+        "endpoint": "https://api.gateway1.dev.trustcerts.de"
+    },
+    "name": "client",
+    "keyPairs": [
+        {
+            "privateKey": {
+                "key_ops": [
+                    "sign"
+                ],
+                "ext": true,
+                "kty": "RSA",
+                "n": "rKimO9paBa77mJthqjtvAz7xDH9or51Vx_Uo_ju-uOmsSpvp_LF7mga2G-VZniv5aND7Fc7j_vJqC4wmPyAV8CTIHcqXrLRiQNT9K6Cbauj1ZJPoYiSva5cSMPhpMl3a25jFcNHaPKJl94E9tNmBcysZJzcNYn5oQ_Y2uC_ph3mbCQHswDyUJ3f4znIwFvgopGLNF3_6EBDfwZEurhOvwn0Zbih1n0VofeYkO-ka7M3Gi9_XHSiFY8Ewu2pbqobe14Fz4ucJ566gfU4fT1DQ-neJsYx6E_0WoJVbP2Bmw6yjR-IQ0cs1ARmcSVH4TJRJqBtdEnUAgf-A7ZpQtoWaOQ",
+                "e": "AQAB",
+                "d": "FRiluBw3wehFpFm-8xGAQNOm2Q2zxTpqjew0Ai1bYkVl-HdIvagTd8hQZcPuIWwS1UZsmXduJvtobukEztN9LrqVy4MSqYbgVvbXSMZ-2u8kNbH3U8-S8gjTT5G4q89pM4n8_OodOemnXxim6SMm5KMsV3zr6SAUHhK2UKbFCFkFI11JeOQwrE12A6SIH5okD49Mje03KmqOP4V7FWRF5wokXcY7kypu3tYv895mlajmbqmcFzwxM1hLnppnlfZ_-Sy48xnnJUHZwr3R3FEn1rTfghLB-qYTjvq_L_0pCSZV4TCZ9NxRnjOgtAmQAm1-AHOVk6chzj1jlcTWltiS0Q",
+                "p": "6p1feGcOSsw4kqQaG1HXlICV3mjX0KDWG2xd0wHcOfsbINec-lgbwaNiiNxuI4g_pOFJKpLI3tllP-_gmvcEqB84U5qbhpzzXJp2v2xEnF9lQ4KwKvVDGAMph4lb89fS7IWDzR9CibN23PYS0hBTj9CArwpCOYrlBu2hUY4Tb1E",
+                "q": "vGWQEbmDBQy-ABJHDIFwdx7_YXAKOLAPiO1N58qPcFWCgtO1Fzl-12cVDxzkerOi5ZLZj-efqucy440Kd8-YWszFmHINSMZKNFFnxQi8OIKr_ywli6tXvdnSZVlBMbi1EmcxFTPzH9brx-I85eOV1cgIRTx_cQPos5ynXPFVUmk",
+                "dp": "lZTwoZtTCW1bRGNMIc70W8H_y2Wc828YEzPsPfQZrP3kNfRCKXqzd6nr0MZ5kj30FfNs6q_bUfnZDAKseSC031vIVcVlE1ZN8uSogTNOK0THE1vnZfwpYs3hVIDHF5iq6hHWDpm3moPJbOeW6Edwf2i4IuGvh3B-xQQMriqfSYE",
+                "dq": "aw4njPrm6eKwwSehugh_2SEDK-JX3Jinaz62C2Y-li3xKNiWyijA3DRWci0P5G3ZvizxdmW_hIU2lLnb3fNYdxhvnE4LIHSVTB-KIRvyoQYYKLt0ZmaqSFbTyQWsF04HjvqWmJ7ZpBkkCISV6GioB0BQ-s8C-Dypag81x4nX2yk",
+                "qi": "XpQFQtsQS1Z3F4gvaLi57OvE-6VenVUS2SebGKZ58oOGtKtIID__Aic2nINLasReRDdd_MqCTdQX7CYOT9AV1IWcANqbh6stuC7d4v-1owDdK-mvCH8Bb7-PXQCd1B9lM2WCu98PF1-BebUi9SAKc5_sJDZ-oEjBfouKXZg-MqM",
+                "alg": "RS256"
+            },
+            "publicKey": {
+                "key_ops": [
+                    "verify"
+                ],
+                "ext": true,
+                "kty": "RSA",
+                "n": "rKimO9paBa77mJthqjtvAz7xDH9or51Vx_Uo_ju-uOmsSpvp_LF7mga2G-VZniv5aND7Fc7j_vJqC4wmPyAV8CTIHcqXrLRiQNT9K6Cbauj1ZJPoYiSva5cSMPhpMl3a25jFcNHaPKJl94E9tNmBcysZJzcNYn5oQ_Y2uC_ph3mbCQHswDyUJ3f4znIwFvgopGLNF3_6EBDfwZEurhOvwn0Zbih1n0VofeYkO-ka7M3Gi9_XHSiFY8Ewu2pbqobe14Fz4ucJ566gfU4fT1DQ-neJsYx6E_0WoJVbP2Bmw6yjR-IQ0cs1ARmcSVH4TJRJqBtdEnUAgf-A7ZpQtoWaOQ",
+                "e": "AQAB",
+                "alg": "RS256"
+            },
+            "identifier": "did:trust:tc:dev:id:XLzBJd69tqEgq7oqqdEsHW#BNhn1T1sg8szFiutQEKckCrPp5VKhNovbbAvjdJsfoMN"
+        },
+        {
+            "privateKey": {
+                "key_ops": [
+                    "sign"
+                ],
+                "ext": true,
+                "kty": "RSA",
+                "n": "0h1MjYDGNWVXftiQT3xA5qRQfFNhkeBK_eNeRnDcpGol5MQj3znzjprm0ktiV-Ql8dsbWi0fUb1A39bkDdT_KE_9ffLU3RL_8PI7_ASTDdanZKiA65uZOW-H-cWH2feOwygSOMugOj42c0Y1C2ZRW8HBtq--BZaIzVh3oRLpvlJvOqcULHmLVLacT25P4tDQfCr0bvJRPInPjv1t8eg3hUbR829jxF7qaxf6HEF-0m-yCCi2Q8yFf5ijQwvULDzRUdSyfR6L9f3__kGzoVW4rYBIC_rEtk7rBJywVxEUUQMuYnzuEVeeJ4MoR3BVEJ3ZNjT14BO4wq1yUCls__lRnQ",
+                "e": "AQAB",
+                "d": "BNridZ6VII9lPywX4Y5NyEaMXuMPrRmRV15_7iwWHRfKz7IXNhrrss7c0zJ6D5fY_JwDJ3PwIP5jgl3qdRtdLfxIhOGDOPyDEiPhbkhYxt1qjsaJ_BJjWagRwfFmMIt_g_49YDdBo4w5ITQXw69V5UM2i6xx5-_Q3MB_kHw_DxkOeI3DirNvHnBfncr9pt_GRJ1r5Dn1UwmejZqPNuPVenOGne62UumL6XCTO-IfTr8I9K6J4pq7XBcVn6QjerJq2PH0rfMhqO2f5kFTFi7BFkRKVj5usj7fL7flr_gQ2yxGLVqOmdgASZbHf8QTJ2b58CyaOxrmyJ-JGFl3Rp2KbQ",
+                "p": "3jjZuAAPcLRSYIWYAOESR0onvU9FKR5F_WZE7sNzAhv485zOk_CcD3PolqeIJte-6Mc3khpTKcxWP2FC6CsMKWqy55Nkr7B98yG8sMBtIK0WZdzivrdtDFIPh-T5gFHRcnt6__tHs9_ndRcGIibkPKldHGSrt4xgwgvu2mnwWl8",
+                "q": "8g1QeKoi6FO6Yk3R5PpnKzGAZY9Gj-qZ4YFI10s-p8-UWfM6CqoHA0IpW5ojBlmG2v7fPRnflX1QMCRuZxoO3cTZDSQGOZPkU6hp9iuZi3z_OQrX2bPIqiKss7XPiRSyt6BVKtIO4PBA9fwjJ4_v0cafp_FwI1P_phYm6c2DzYM",
+                "dp": "ciaf6D3XsJxgaIaXk3QKUKaODVfn_fw4FbfwFvo9XMsDshhNoX8Km4F96825ScKvpaGYMSvmpmT5tOsAVISwZaISrpRvNzShLkCZTe464HspM0ApFbDhil-o7LS5WaotvfIiN9ZbedG9cs9V7jsuKN8THl-0OcAZf_RjSLz8o18",
+                "dq": "USw54l1cG4GIrdLfIuT-mDOflW95AGZyeHd80AaB2pD4dTnmKxFeDK-xYvDL8iMv4F08zCbTHjTKIXr2M0k_1wteptN_6us31P5TmqSAd5DRnnWOcYmjL7s1I4dDM_tm-8GfDh8nsjOf9V47A9d3W2g6vn1vV8mhoDcpkZrEKrU",
+                "qi": "RAuHqVtRyyhqFFucmlzI3ByRLXm88S_qBvqx1DDGWnhqd8jUzzAET5-_1RKRbaGy-4PfNdF3xRklMTDn3hgE_epJdebUNjnBT7mTZ7XQmq55ZECO4Z_o86zfnbDW-LRdbxiGXssOk2zP8ucdPSdVrtZUmPIpvbAMuGHLX9bxNwE",
+                "alg": "RS256"
+            },
+            "publicKey": {
+                "key_ops": [
+                    "verify"
+                ],
+                "ext": true,
+                "kty": "RSA",
+                "n": "0h1MjYDGNWVXftiQT3xA5qRQfFNhkeBK_eNeRnDcpGol5MQj3znzjprm0ktiV-Ql8dsbWi0fUb1A39bkDdT_KE_9ffLU3RL_8PI7_ASTDdanZKiA65uZOW-H-cWH2feOwygSOMugOj42c0Y1C2ZRW8HBtq--BZaIzVh3oRLpvlJvOqcULHmLVLacT25P4tDQfCr0bvJRPInPjv1t8eg3hUbR829jxF7qaxf6HEF-0m-yCCi2Q8yFf5ijQwvULDzRUdSyfR6L9f3__kGzoVW4rYBIC_rEtk7rBJywVxEUUQMuYnzuEVeeJ4MoR3BVEJ3ZNjT14BO4wq1yUCls__lRnQ",
+                "e": "AQAB",
+                "alg": "RS256"
+            },
+            "identifier": "did:trust:tc:dev:id:XLzBJd69tqEgq7oqqdEsHW#5iby4eS8tCcVgjYfACEzTUQfyxqwCA3caEk88TeRyb92"
+        }
+    ]
+}

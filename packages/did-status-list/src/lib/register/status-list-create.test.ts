@@ -6,12 +6,10 @@ import {
   Identifier,
   VerificationRelationshipType,
 } from '@trustcerts/did';
-import {
-  DidStatusListRegister,
-  DidStatusListResolver,
-  StatusListService,
-  StatusListIssuerService,
-} from '@trustcerts/did-status-list';
+import { DidStatusListRegister } from './did-status-list-register';
+import { DidStatusListResolver } from '../resolver/did-status-list-resolver';
+import { StatusListService } from './revocation-service';
+import { StatusListIssuerService } from './status-list-issuer-service';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
 

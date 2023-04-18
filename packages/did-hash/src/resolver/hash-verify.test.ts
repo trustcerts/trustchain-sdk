@@ -10,11 +10,9 @@ import {
   Identifier,
   VerificationRelationshipType,
 } from '@trustcerts/did';
-import {
-  DidHashRegister,
-  DidHashResolver,
-  SignatureIssuerService,
-} from '@trustcerts/did-hash';
+import { DidHashRegister } from '../register/did-hash-register';
+import { DidHashResolver } from './did-hash-resolver';
+import { SignatureIssuerService } from '../register/hash-issuer-service';
 import { base58Encode, write } from '@trustcerts/helpers';
 import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
@@ -30,7 +28,6 @@ describe('test signature verify service', () => {
   const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   beforeAll(async () => {
-    console.log(testValues);
     DidNetworks.add(testValues.network.namespace, testValues.network);
     Identifier.setNetwork(testValues.network.namespace);
     config = new LocalConfigService(testValues.filePath);

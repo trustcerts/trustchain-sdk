@@ -36,7 +36,7 @@ export class DidStatusList extends Did {
       this.statusPurpose = lastTransaction.statusPurpose ?? this.statusPurpose;
       encodedList = lastTransaction.encodedList;
     }
-    if (!encodedList) throw new Error();
+    if (!encodedList) throw new Error('no encoded list found');
     this.initBitstring(encodedList);
   }
 
