@@ -27,7 +27,7 @@ describe('test signature verify service', () => {
 
   const testFile = 'tmp/test';
 
-  const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+  const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   beforeAll(async () => {
     console.log(testValues);

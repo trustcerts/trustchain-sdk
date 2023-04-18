@@ -12,7 +12,6 @@ let write: (path: string, value: string) => void;
 let exists: (path: string) => boolean;
 let read: (path: string) => string;
 let remove: (path: string) => void;
-
 /**
  * Checks if code is run in browser
  */
@@ -23,17 +22,38 @@ function isBrowser(): boolean {
 }
 
 // base58 characters (Bitcoin alphabet)
-const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-
+const Base58Alphabet =
+  '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+const Base64Alphabet =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 /**
  * Encodes an input in a string via base58
  */
-function base58Encode(buffer: Uint8Array, maxline?: number): string {
-  return encode(buffer, alphabet, maxline);
+function base58Encode(buffer: Uint8Array): string {
+  return encode(buffer, Base58Alphabet);
 }
 
 function base58Decode(string: string): Uint8Array {
-  return decode(string, alphabet);
+  return decode(string, Base58Alphabet);
+}
+
+function base64Encode(input: any): string {
+  return encode(input, Base64Alphabet);
+}
+
+function base64Decode(input: string): Uint8Array {
+  return decode(input, Base64Alphabet);
+}
+
+function base64EncodeUrl(input: any): string {
+  return base64Encode(input)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
+
+function base64DecodeUrl(input: string): Uint8Array {
+  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/'));
 }
 
 if (!isBrowser()) {
@@ -45,6 +65,12 @@ if (!isBrowser()) {
   };
   exists = existsSync;
   read = (path: string): string => readFileSync(path, 'utf-8');
+  // base64Encode = (input: string | Buffer): string => {
+  //   const buffer =
+  //     typeof input === 'string' ? Buffer.from(input, 'utf-8') : input;
+  //   const base64 = buffer.toString('base64');
+  //   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  // };
 
   remove = unlinkSync;
 } else {
@@ -55,6 +81,11 @@ if (!isBrowser()) {
     window.localStorage.getItem(path) !== null;
   read = (path: string): string => window.localStorage.getItem(path) as string;
   remove = window.localStorage.removeItem;
+
+  // base64Encode = (input: any): string => {
+  //   const base64 = window.btoa(input);
+  //   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  // };
 }
 
 /**
@@ -76,5 +107,9 @@ export {
   isBrowser,
   base58Encode,
   base58Decode,
+  base64Encode,
+  base64Decode,
+  base64EncodeUrl,
+  base64DecodeUrl,
   wait,
 };

@@ -1,6 +1,5 @@
+import { base64DecodeUrl } from '@trustcerts/helpers';
 import { JWTHeader, JWTPayload } from '@trustcerts/vc';
-
-import base64url from 'base64url';
 
 export class JWT {
   private header: JWTHeader;
@@ -55,7 +54,6 @@ export class JWT {
    * @returns The decoded payload
    */
   decode<T>(value: string): T {
-    return JSON.parse(base64url.decode(value)) as T;
-    //return JSON.parse(Buffer.from(value, 'base64url').toString('binary')) as T;
+    return JSON.parse(base64DecodeUrl(value) as any) as T;
   }
 }

@@ -60,7 +60,7 @@ describe('vc', () => {
     'BSykKbXj-_AmwJW4WqaNmh_EkuF95Lrud1_r2DhT7PVNUHDXjMtTDEluLoclDTrhtnFee8dUdTeVjqVOQo8WckFtQA-SHo6sNxKrSMhM_Gb_6pR4b5fghtY2I9I4HcndN8mOzdLG0RO6vziYkb0VEKtatxkkQYX1EXgwpInTKZqLTHXC07gMsKtLy8OfklVpI45hzHPna50g1ZOC6NnF6_I95g1Y3azsRYZRPmZhOFFHxJi-J3mgU4X42S2F6yVRXiuEIFmCj4m5eZq3LGGg9HF3K8jpCPSOup6VXsPKf4W5Tq5Aym-I4SW_dygsAYC-Eii_IX_D7jgk7otYfxoJ2A';
 
   beforeAll(async () => {
-    const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+    const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
     DidNetworks.add(testValues.network.namespace, testValues.network);
     Identifier.setNetwork(testValues.network.namespace);

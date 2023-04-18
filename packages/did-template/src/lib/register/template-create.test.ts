@@ -35,7 +35,7 @@ describe('test template service', () => {
 
   const template = '<h1>Hello {{ name }}</h1>';
 
-  const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+  const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   beforeAll(async () => {
     DidNetworks.add(testValues.network.namespace, testValues.network);

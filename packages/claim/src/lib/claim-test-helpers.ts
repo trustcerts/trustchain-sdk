@@ -22,7 +22,7 @@ const schema = {
   additionalProperties: false,
 };
 
-const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
 /**
  *

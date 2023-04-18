@@ -16,7 +16,7 @@ describe('test claim.ts', () => {
 
   let cryptoService: CryptoService;
 
-  const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+  const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   let claim: Claim;
 

@@ -6,11 +6,9 @@ import {
   Identifier,
   VerificationRelationshipType,
 } from '@trustcerts/did';
-import {
-  DidStatusListRegister,
-  DidStatusListResolver,
-  StatusListIssuerService,
-} from '@trustcerts/did-status-list';
+import { DidStatusListRegister } from '../register/did-status-list-register';
+import { DidStatusListResolver } from './did-status-list-resolver';
+import { StatusListIssuerService } from '../register/status-list-issuer-service';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
 
@@ -18,7 +16,7 @@ describe('test statuslist service', () => {
   let config: ConfigService;
   let cryptoService: CryptoService;
 
-  const testValues = JSON.parse(readFileSync('./values.json', 'utf-8'));
+  const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   beforeAll(async () => {
     DidNetworks.add(testValues.network.namespace, testValues.network);

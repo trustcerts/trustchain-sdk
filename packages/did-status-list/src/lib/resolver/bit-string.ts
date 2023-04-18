@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
  */
-import base64url from 'base64url';
+import { base64Decode, base64Encode } from '@trustcerts/helpers';
 import { gzip, ungzip } from 'pako';
 
 export class Bitstring {
@@ -57,7 +57,7 @@ export class Bitstring {
    * @returns
    */
   encodeBits() {
-    return base64url.encode(Buffer.from(gzip(this.bits)));
+    return base64Encode(Buffer.from(gzip(this.bits)));
   }
 
   /**
@@ -67,7 +67,7 @@ export class Bitstring {
    * @returns
    */
   static decodeBits(encoded: string) {
-    return ungzip(base64url.toBuffer(encoded));
+    return ungzip(base64Decode(encoded));
   }
 
   // /**

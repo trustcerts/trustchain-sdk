@@ -1,8 +1,14 @@
 import { DidIdResolver } from '@trustcerts/did';
-import { base58Encode, exists, read, write } from '@trustcerts/helpers';
+import { DidPublicKeyPublicKeyJwk } from '@trustcerts/gateway';
+import {
+  base58Encode,
+  base64DecodeUrl,
+  exists,
+  read,
+  write,
+} from '@trustcerts/helpers';
 import { logger } from '@trustcerts/logger';
 import globalAxios from 'axios';
-import base64url from 'base64url';
 import { extendContextLoader } from 'jsonld-signatures';
 
 export interface LoaderResponse {
@@ -89,8 +95,7 @@ export class DocumentLoader {
           const did = await resolver.load(url.split('#')[0]);
           const doc = did.getKey(url);
           // TODO remove this line
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          if (!(doc.publicKeyJwk as any).x) {
+          if (!(doc.publicKeyJwk as DidPublicKeyPublicKeyJwk).x) {
             // TODO: implement RSA key? (but not needed yet since documentLoader is only used by BBS library)
             throw new Error(
               `${url} does not contain a Bls12381G2KeyPair: ${doc.publicKeyJwk}`
@@ -100,9 +105,9 @@ export class DocumentLoader {
             contextUrl: null,
             document: {
               publicKeyBase58: base58Encode(
-                // TODO remove
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                base64url.toBuffer((doc.publicKeyJwk as any).x)
+                base64DecodeUrl(
+                  (doc.publicKeyJwk as DidPublicKeyPublicKeyJwk).x as string
+                )
               ),
               id: url,
               controller: did,
