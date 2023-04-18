@@ -15,6 +15,12 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
+    "pre-publish": {
+      "dependsOn": ["^pre-publish"]
+    },
+    "publish": {
+      "dependsOn": ["^publish"]
+    },
     "lint": {
       "inputs": [
         "default",

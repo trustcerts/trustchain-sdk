@@ -49,7 +49,7 @@ const projectPackageJson = project.data?.targets?.build?.options?.project;
 
 // Updating the version in "package.json" before publishing
 try {
-  const json = JSON.parse(readFileSync(projectPackageJson).toString());  
+  const json = JSON.parse(readFileSync(projectPackageJson).toString());
   if(["major", "minor", "patch"].includes(update)) {
     // get the latest version from npm. In this case we do not need to persist it locally and make another push to changed code or manage it via tags in git.
     const version = (await axios.get(`https://registry.npmjs.org/${json.name}/latest`)).data.version;
@@ -71,7 +71,8 @@ try {
     json.version = elements.join('.');
   } else {
     json.version = update;
-  }  
+  }
+  json.version = "13.5.12";
   writeFileSync(projectPackageJson, JSON.stringify(json, null, 2));
 } catch (e) {
   console.error(

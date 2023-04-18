@@ -15,7 +15,8 @@
         "project": "packages/claim/package.json",
         "compiler": "tsc",
         "format": ["cjs", "esm"],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "pre-publish": {

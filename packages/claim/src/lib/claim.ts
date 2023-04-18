@@ -65,7 +65,7 @@ export class Claim {
             light: '#0000',
           },
         },
-        (err, result) => {
+        (err: any, result: string) => {
           if (err) {
             reject(err);
           }
