@@ -24,8 +24,6 @@ function isBrowser(): boolean {
 // base58 characters (Bitcoin alphabet)
 const Base58Alphabet =
   '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-const Base64Alphabet =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 /**
  * Encodes an input in a string via base58
  */
@@ -38,11 +36,13 @@ function base58Decode(string: string): Uint8Array {
 }
 
 function base64Encode(input: any): string {
-  return encode(input, Base64Alphabet);
+  return isBrowser()
+    ? window.btoa(input)
+    : Buffer.from(input).toString('base64');
 }
 
-function base64Decode(input: string): Uint8Array {
-  return decode(input, Base64Alphabet);
+function base64Decode(input: string): Buffer | string {
+  return isBrowser() ? window.atob(input) : Buffer.from(input, 'base64');
 }
 
 function base64EncodeUrl(input: any): string {
@@ -52,8 +52,8 @@ function base64EncodeUrl(input: any): string {
     .replace(/=+$/, '');
 }
 
-function base64DecodeUrl(input: string): Uint8Array {
-  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/'));
+function base64DecodeUrl(input: string): string {
+  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/')) as string;
 }
 
 if (!isBrowser()) {

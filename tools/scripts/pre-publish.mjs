@@ -71,8 +71,7 @@ try {
     json.version = elements.join('.');
   } else {
     json.version = update;
-  }
-  json.version = "13.5.12";
+  }  
   writeFileSync(projectPackageJson, JSON.stringify(json, null, 2));
 } catch (e) {
   console.error(
