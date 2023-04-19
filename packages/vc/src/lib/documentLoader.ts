@@ -105,7 +105,7 @@ export class DocumentLoader {
             contextUrl: null,
             document: {
               publicKeyBase58: base58Encode(
-                base64DecodeUrl(
+                base64DecodeUrl<Uint8Array>(
                   (doc.publicKeyJwk as DidPublicKeyPublicKeyJwk).x as string
                 )
               ),

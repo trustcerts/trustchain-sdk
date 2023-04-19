@@ -45,15 +45,15 @@ function base64Decode(input: string): Buffer | string {
   return isBrowser() ? window.atob(input) : Buffer.from(input, 'base64');
 }
 
-function base64EncodeUrl(input: any): string {
+function base64EncodeUrl<T = string>(input: T): string {
   return base64Encode(input)
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
 
-function base64DecodeUrl(input: string): string {
-  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/')) as string;
+function base64DecodeUrl<T = string>(input: string): T {
+  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/')) as T;
 }
 
 if (!isBrowser()) {

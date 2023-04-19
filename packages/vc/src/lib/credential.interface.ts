@@ -35,12 +35,14 @@ export interface JWTHeader {
   kid: string;
 }
 export interface JWTPayload {
-  iss: string;
+  sub: string;
   jti: string;
-  aud: string;
+  iss: string;
   nbf: string;
-  iat: string;
-  exp?: string;
+  // TODO aud is only required for presentation
+  aud: string;
+  iat: number;
+  exp?: number;
   nonce?: string;
 }
 export interface JWTPayloadVC extends JWTPayload {
