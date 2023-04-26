@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@trustcerts/helpers": ["packages/helpers/src/index.ts"],
       "@trustcerts/claim": ["packages/claim/src/index.ts"],
       "@trustcerts/config": ["packages/config/src/index.ts"],
       "@trustcerts/config-local": ["packages/config-local/src/index.ts"],
@@ -29,11 +28,13 @@
         "packages/did-visual-representation/src/index.ts"
       ],
       "@trustcerts/gateway": ["packages/gateway/src/index.ts"],
+      "@trustcerts/helpers": ["packages/helpers/src/index.ts"],
       "@trustcerts/logger": ["packages/logger/src/index.ts"],
       "@trustcerts/observer": ["packages/observer/src/index.ts"],
       "@trustcerts/vc": ["packages/vc/src/index.ts"],
       "@trustcerts/vc-jwt": ["packages/vc-jwt/src/index.ts"],
-      "@trustcerts/wallet": ["packages/wallet/src/index.ts"]
+      "@trustcerts/wallet": ["packages/wallet/src/index.ts"],
+      "@trustchain-sdk/tests": ["packages/tests/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

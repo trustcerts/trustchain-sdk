@@ -10,11 +10,9 @@ import {
   Identifier,
   VerificationRelationshipType,
 } from '@trustcerts/did';
-import {
-  DidHashRegister,
-  DidHashResolver,
-  SignatureIssuerService,
-} from '@trustcerts/did-hash';
+import { DidHashRegister } from './did-hash-register';
+import { DidHashResolver } from '../resolver/did-hash-resolver';
+import { SignatureIssuerService } from './hash-issuer-service';
 import { base58Encode, write } from '@trustcerts/helpers';
 import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
@@ -46,7 +44,7 @@ describe('test signature service', () => {
       )
     )[0];
     await cryptoService.init(key);
-  }, 10000);
+  }, 15000);
 
   it('sign string', async () => {
     if (!config.config.invite) throw new Error();

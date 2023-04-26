@@ -35,7 +35,6 @@ export class WalletService {
   public async init(): Promise<void> {
     if (!this.configService.config.invite) throw Error('no id found');
     const invite = this.configService.config.invite;
-    logger.debug('got invite');
     this.did = await this.resolver
       .load(invite.id)
       .catch(async (err) => {

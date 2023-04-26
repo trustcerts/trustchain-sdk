@@ -17,6 +17,7 @@ import { base58Encode, write } from '@trustcerts/helpers';
 import { WalletService } from '@trustcerts/wallet';
 import { randomBytes } from 'crypto';
 import { existsSync, readFileSync, rmSync } from 'fs';
+import { logger } from '@trustcerts/logger';
 
 describe('test signature verify service', () => {
   let config: ConfigService;
@@ -28,6 +29,7 @@ describe('test signature verify service', () => {
   const testValues = JSON.parse(readFileSync('./tests/values.json', 'utf-8'));
 
   beforeAll(async () => {
+    logger.debug('start');
     DidNetworks.add(testValues.network.namespace, testValues.network);
     Identifier.setNetwork(testValues.network.namespace);
     config = new LocalConfigService(testValues.filePath);

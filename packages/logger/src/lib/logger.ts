@@ -9,7 +9,7 @@ export function disableLogging() {
     }
   };
 }
-disableLogging();
+// disableLogging();
 
 export function setLogger(newLogger: Console): void {
   logger = newLogger;
