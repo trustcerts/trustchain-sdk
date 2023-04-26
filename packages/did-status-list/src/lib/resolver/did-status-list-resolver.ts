@@ -1,5 +1,5 @@
 import { DidResolver, InitDidManagerConfigValues } from '@trustcerts/did';
-import { DidStatusListStructure } from '@trustcerts/observer';
+import { DidStatusListStructure } from '@trustcerts/gateway';
 import { ICredentialStatus } from '../register/revocation.interface';
 import { DidStatusList } from './did-status-list';
 import { StatusListVerifierService } from './status-list-verifier-service';

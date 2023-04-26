@@ -9,11 +9,9 @@ import {
 import { logger } from '@trustcerts/logger';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
-import {
-  JWT,
-  VerifiableCredentialIssuerService,
-  JWTVerifiableCredentialVerifierService,
-} from '@trustcerts/vc-jwt';
+import { JWT } from './jwt-service';
+import { VerifiableCredentialIssuerService } from './jwt-verifiable-credential-issuer-service';
+import { JWTVerifiableCredentialVerifierService } from './jwt-verifiable-credential-verifier-service';
 import { JWTPayloadVC, JWTPayloadVP } from '@trustcerts/vc';
 import {
   DidStatusListRegister,

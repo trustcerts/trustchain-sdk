@@ -12,7 +12,8 @@ import {
 } from '@trustcerts/did';
 import { StatusListService } from '@trustcerts/did-status-list';
 import { logger } from '@trustcerts/logger';
-import { JWT, VerifiableCredentialIssuerService } from '@trustcerts/vc-jwt';
+import { JWT } from './jwt-service';
+import { VerifiableCredentialIssuerService } from './jwt-verifiable-credential-issuer-service';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
 

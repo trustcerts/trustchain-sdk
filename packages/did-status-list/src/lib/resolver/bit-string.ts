@@ -57,7 +57,7 @@ export class Bitstring {
    * @returns
    */
   encodeBits() {
-    return base64Encode(Buffer.from(gzip(this.bits)));
+    return base64Encode(gzip(this.bits));
   }
 
   /**
@@ -67,7 +67,9 @@ export class Bitstring {
    * @returns
    */
   static decodeBits(encoded: string) {
-    return ungzip(base64Decode(encoded));
+    console.log(encoded);
+    console.log(base64Decode(encoded) as Uint8Array);
+    return ungzip(base64Decode(encoded) as Uint8Array);
   }
 
   // /**

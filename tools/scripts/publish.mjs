@@ -82,7 +82,7 @@ try {
   } else {
     json.version = update;
   }
-  json.version = "13.5.23";
+  // json.version = "13.5.23";
   writeFileSync(`package.json`, JSON.stringify(json, null, 2));
 } catch (e) {
   console.error(

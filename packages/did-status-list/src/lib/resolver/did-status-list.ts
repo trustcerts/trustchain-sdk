@@ -11,7 +11,7 @@ export class DidStatusList extends Did {
 
   statusPurpose!: StatusPurpose;
 
-  private list!: Bitstring;
+  public list!: Bitstring;
 
   constructor(public override id: string, private length?: number) {
     super(id, DidStatusList.objectName, 22);
@@ -47,8 +47,14 @@ export class DidStatusList extends Did {
   }
 
   private initBitstring(encodedList: string) {
-    const buffer = Bitstring.decodeBits(encodedList);
-    this.list = new Bitstring({ buffer });
+    try {
+      const buffer = Bitstring.decodeBits(encodedList);
+      console.log(buffer);
+      this.list = new Bitstring({ buffer });
+    } catch (e) {
+      console.log(e);
+    }
+    console.log('init string');
   }
 
   getLength() {
