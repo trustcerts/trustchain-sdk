@@ -54,6 +54,7 @@ export class JWT {
    * @returns The decoded payload
    */
   decode<T>(value: string): T {
-    return JSON.parse(base64UrlDecode(value) as any) as T;
+    const decoded = new TextDecoder().decode(base64UrlDecode(value));
+    return JSON.parse(decoded) as T;
   }
 }

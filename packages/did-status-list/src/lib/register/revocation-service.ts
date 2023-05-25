@@ -19,6 +19,7 @@ export class StatusListService {
   }
 
   static async load(path: string) {
+    // TODO instead of passing a path, we should be able to pass the parameters directly. In this case we also need a method to store the updated values like the nextIndex value.
     const statusListConfig = JSON.parse(read(path));
     const did = await new DidStatusListResolver().load(statusListConfig.id);
     return new StatusListService(path, did);

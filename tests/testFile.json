@@ -63,6 +63,30 @@
                 "alg": "RS256"
             },
             "identifier": "did:trust:tc:dev:id:XLzBJd69tqEgq7oqqdEsHW#36SLpgkpG8PrgeUW6apSztNbjw9hx4ibCvwykHUvwGNm"
+        },
+        {
+            "privateKey": {
+                "key_ops": [
+                    "sign"
+                ],
+                "ext": true,
+                "kty": "EC",
+                "x": "C3BQdmJkam9x2Tfm0ZBJCt-zOiBBEHjZ7-voKBYABdU",
+                "y": "_wf_Jxh1RV_ldZ_efhd3f02otlRvmbfM1qMzQl_Bl5Y",
+                "crv": "P-256",
+                "d": "JOvvZtsM93ern5gD5dZd_O64R0Z1XdA_HqedFBjLdrg"
+            },
+            "publicKey": {
+                "key_ops": [
+                    "verify"
+                ],
+                "ext": true,
+                "kty": "EC",
+                "x": "C3BQdmJkam9x2Tfm0ZBJCt-zOiBBEHjZ7-voKBYABdU",
+                "y": "_wf_Jxh1RV_ldZ_efhd3f02otlRvmbfM1qMzQl_Bl5Y",
+                "crv": "P-256"
+            },
+            "identifier": "did:trust:tc:dev:id:XLzBJd69tqEgq7oqqdEsHW#HwwBP6RpaVsDyGrwpTqToXb91S6Z7JCa6nXvjQSEBqhi"
         }
     ]
 }

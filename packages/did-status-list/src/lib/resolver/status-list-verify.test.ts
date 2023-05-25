@@ -39,11 +39,12 @@ describe('test statuslist service', () => {
     await cryptoService.init(key);
   }, 10000);
 
-  it('check string', async () => {
-    const decoded = Bitstring.decodeBits('H4sIAAAAAAAAA2NgGEAAAKh0odt9AAAA');
-    const f1 = new Bitstring({ buffer: decoded });
-    console.log(f1.encodeBits());
+  it('test bitstring', async () => {
+    const str =
+      'eyJhbGciOiJSUzI1NiIsImtpZCI6ImRpZDp0cnVzdDp0YzpkZXY6aWQ6Qm81bkc4c0hCWjd4N3l4U2JoZUJIZSNDYnlWUHFoNlVhc0QxdkN4VGhUVFBtRjZyZ2ttUXJpekhSN1NubXV5VEZDNSJ9.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbXSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6dHJ1c3Q6dGM6ZGV2OmlkOkJqMjh3WnVtNzF0bWpRb3hBbktGNHkiLCJuYW1lIjoiVlcgUG9sbyJ9fSwibm9uY2UiOiJwRFVWYU9KeW5uQ29hbnJJQ1JRMCIsImlhdCI6MTY4Mjg1NDU3MywiaXNzIjoiZGlkOnRydXN0OnRjOmRldjppZDpCbzVuRzhzSEJaN3g3eXhTYmhlQkhlIiwic3ViIjoiZGlkOnRydXN0OnRjOmRldjppZDpCajI4d1p1bTcxdG1qUW94QW5LRjR5IiwianRpIjoid2dVdzk2SW0ySGs2aDJ3NjkyMzgifQ.EbQUXC3JbZFL-GTL_9nyqIJDh6PFLOPwXi40_Hc8zag4KP1WHHc267i8axeKOsitLKmlnAbHk3bXAAWBNA9mKZEXEfFyZOO--OPWv7UXn86LMefDB1kUCs5fUchrImFdki4SWRuWI5qNeOx-HJRc9NS7bdD8z4cBb3WOx8YjgeaPj6tNPoS4pi2Y1GrxtfXUxN7bNyKPqnMmg3MHZE2GYl_jmhEil4CinPBD2gHXWeMw1YXH5TQ8wZbaAXnvYiXEb2XO_siJAPj4kEZAtedxhJ6MgFSAf40at70gnerXqPf9RSVMUtX1fu1zQ9p960wws8FMZCFX8ZD7wLZ-Ta7FCg';
+    console.log(base64Decode(str.split('.')[0].toString()));
   });
+
   it('verify and read', async () => {
     if (!config.config.invite) throw new Error();
     const clientSchema = new StatusListIssuerService(
