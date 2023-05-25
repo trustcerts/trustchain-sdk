@@ -11,6 +11,8 @@ import { DidStatusListResolver } from './did-status-list-resolver';
 import { StatusListIssuerService } from '../register/status-list-issuer-service';
 import { WalletService } from '@trustcerts/wallet';
 import { readFileSync } from 'fs';
+import { Bitstring } from './bit-string';
+import { base64Decode, base64Encode } from '@trustcerts/helpers';
 
 describe('test statuslist service', () => {
   let config: ConfigService;
@@ -37,6 +39,11 @@ describe('test statuslist service', () => {
     await cryptoService.init(key);
   }, 10000);
 
+  it('check string', async () => {
+    const decoded = Bitstring.decodeBits('H4sIAAAAAAAAA2NgGEAAAKh0odt9AAAA');
+    const f1 = new Bitstring({ buffer: decoded });
+    console.log(f1.encodeBits());
+  });
   it('verify and read', async () => {
     if (!config.config.invite) throw new Error();
     const clientSchema = new StatusListIssuerService(

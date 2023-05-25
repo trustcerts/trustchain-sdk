@@ -2,13 +2,13 @@ import { DidIdResolver } from '@trustcerts/did';
 import { DidPublicKeyPublicKeyJwk } from '@trustcerts/gateway';
 import {
   base58Encode,
-  base64DecodeUrl,
+  base64UrlDecode,
   exists,
   read,
   write,
 } from '@trustcerts/helpers';
 import { logger } from '@trustcerts/logger';
-import globalAxios from 'axios';
+import axios from 'axios';
 import { extendContextLoader } from 'jsonld-signatures';
 
 export interface LoaderResponse {
@@ -105,7 +105,7 @@ export class DocumentLoader {
             contextUrl: null,
             document: {
               publicKeyBase58: base58Encode(
-                base64DecodeUrl<Uint8Array>(
+                base64UrlDecode(
                   (doc.publicKeyJwk as DidPublicKeyPublicKeyJwk).x as string
                 )
               ),
@@ -128,7 +128,7 @@ export class DocumentLoader {
         if (!resolvedDoc) {
           logger.debug('Resolving URL ' + url);
           // assume it's an context URL and resolve
-          const response = await globalAxios.get<string>(url, {
+          const response = await axios.get<string>(url, {
             timeout: this.MAX_LOADING_TIME,
           });
           const context = response.data;

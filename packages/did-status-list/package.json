@@ -1,6 +1,6 @@
 {
   "name": "@trustcerts/did-status-list",
-  "version": "13.5.37",
+  "version": "13.5.50",
   "devDependencies": {
     "@types/pako": "^2.0.0"
   }

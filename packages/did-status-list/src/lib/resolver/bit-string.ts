@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2020 Digital Bazaar, Inc. All rights reserved.
  */
-import { base64Decode, base64Encode } from '@trustcerts/helpers';
+import { base64UrlDecode, base64UrlEncode } from '@trustcerts/helpers';
 import { gzip, ungzip } from 'pako';
 
 export class Bitstring {
@@ -57,7 +57,7 @@ export class Bitstring {
    * @returns
    */
   encodeBits() {
-    return base64Encode(gzip(this.bits));
+    return base64UrlEncode(gzip(this.bits));
   }
 
   /**
@@ -67,29 +67,8 @@ export class Bitstring {
    * @returns
    */
   static decodeBits(encoded: string) {
-    console.log(encoded);
-    console.log(base64Decode(encoded) as Uint8Array);
-    return ungzip(base64Decode(encoded) as Uint8Array);
+    return ungzip(base64UrlDecode(encoded) as Uint8Array);
   }
-
-  // /**
-  //  * Compresses the bitstring
-  //  *
-  //  * @returns
-  //  */
-  // async compressBits() {
-  //   return gzip(this.bits);
-  // }
-
-  // /**
-  //  * Uncompresses the bitstring
-  //  *
-  //  * @param compressed
-  //  * @returns
-  //  */
-  // static async uncompressBits(compressed: Uint8Array) {
-  //   return ungzip(compressed);
-  // }
 }
 
 /**

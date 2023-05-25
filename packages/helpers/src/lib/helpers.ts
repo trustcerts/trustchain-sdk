@@ -45,17 +45,6 @@ function base64Decode(input: string): Buffer | string {
   return isBrowser() ? window.atob(input) : Buffer.from(input, 'base64');
 }
 
-function base64EncodeUrl<T = string>(input: T): string {
-  return base64Encode(input)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-}
-
-function base64DecodeUrl<T = string>(input: string): T {
-  return base64Decode(input.replace(/-/g, '+').replace(/_/g, '/')) as T;
-}
-
 if (!isBrowser()) {
   const getDirName = dirname;
   // TODO: writeFileSync is bad practice (synchronous): https://www.geeksforgeeks.org/node-js-fs-writefilesync-method/
@@ -65,12 +54,6 @@ if (!isBrowser()) {
   };
   exists = existsSync;
   read = (path: string): string => readFileSync(path, 'utf-8');
-  // base64Encode = (input: string | Buffer): string => {
-  //   const buffer =
-  //     typeof input === 'string' ? Buffer.from(input, 'utf-8') : input;
-  //   const base64 = buffer.toString('base64');
-  //   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  // };
 
   remove = unlinkSync;
 } else {
@@ -81,11 +64,6 @@ if (!isBrowser()) {
     window.localStorage.getItem(path) !== null;
   read = (path: string): string => window.localStorage.getItem(path) as string;
   remove = window.localStorage.removeItem;
-
-  // base64Encode = (input: any): string => {
-  //   const base64 = window.btoa(input);
-  //   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  // };
 }
 
 /**
@@ -109,7 +87,5 @@ export {
   base58Decode,
   base64Encode,
   base64Decode,
-  base64EncodeUrl,
-  base64DecodeUrl,
   wait,
 };
