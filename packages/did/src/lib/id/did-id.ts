@@ -88,6 +88,16 @@ export class DidId extends Did {
     return this.service.current.has(this.getFullId(id));
   }
 
+  getServices(type?: string) {
+    if (type) {
+      return Array.from(this.service.current.values()).filter(
+        (service) => service.type === type
+      );
+    } else {
+      return Array.from(this.service.current.values());
+    }
+  }
+
   getService(id: string): DidService {
     const service = this.service.current.get(this.getFullId(id));
     if (!service) {

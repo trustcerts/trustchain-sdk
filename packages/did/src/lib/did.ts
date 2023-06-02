@@ -166,7 +166,8 @@ export abstract class Did {
    * @returns a Controller manager
    */
   protected getChangesController(): ControllerManage | undefined {
-    if (this.controller.add.size > 0 && this.controller.remove.size > 0) return;
+    if (this.controller.add.size === 0 && this.controller.remove.size === 0)
+      return;
 
     return {
       add:
