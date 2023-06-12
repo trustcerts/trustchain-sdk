@@ -1,6 +1,6 @@
 {
   "name": "@trustcerts/did-status-list",
-  "version": "13.5.55",
+  "version": "13.5.56",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/pako": "^2.0.0"
